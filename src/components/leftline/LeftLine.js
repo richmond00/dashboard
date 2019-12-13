@@ -3,25 +3,16 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 
 const options = {
-    chart: {
-        type: 'bar'
-    },
-
     title: {
         text: undefined
     },
-
-    xAxis: {
-        categories: [ 'series1', 'series2', 'series3', 'series4' ]
-    },
-
     series: [{
-        data: [1,2,3,4]
+        data: [1,2,3]
     }]
 }
 
-const LeftBar = () => <div>
+const LeftLine = () => <div>
     <HighchartsReact highcharts={Highcharts} options={options} />
 </div>
 
-export default LeftBar
+export default LeftLine

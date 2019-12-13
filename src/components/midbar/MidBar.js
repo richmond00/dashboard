@@ -15,13 +15,13 @@ const options = {
         categories: [ 'series1', 'series2', 'series3', 'series4' ]
     },
 
-    series: [{
+    series: [{ 
         data: [1,2,3,4]
     }]
 }
 
-const LeftBar = () => <div>
+const MidBar = () => <div>
     <HighchartsReact highcharts={Highcharts} options={options} />
 </div>
 
-export default LeftBar
+export default MidBar

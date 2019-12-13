@@ -20,8 +20,8 @@ const options = {
     }]
 }
 
-const LeftBar = () => <div>
+const RightBar = () => <div>
     <HighchartsReact highcharts={Highcharts} options={options} />
 </div>
 
-export default LeftBar
+export default RightBar
