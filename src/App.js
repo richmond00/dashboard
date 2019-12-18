@@ -13,8 +13,22 @@ class App extends Component {
     state = template;
 
     copyDataSeries = (obj = {}) => {
+        this.setState({
+            ...obj,
 
+            charts: [
+                { serie: fossilFuleData, title: "Fossil Fuel" },
+                { serie: hydroElectricData, title: "Hydroelectric Energy" },
+                { serie: renewableEngergyData, title: "Biomass" },
+                { serie: biomassData, title: "Renewable Energy" }
+            ]
+        });
     };
+
+    componentDidMount() {
+        dataProcessing(this.state.yearFrom, this.state.yearTo, this.state.msg);
+        this.copyDataSeries();
+    }
 
     render() {
         return (
