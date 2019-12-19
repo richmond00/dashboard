@@ -39,7 +39,7 @@ let dataProcessing = (yearFrom, yearTo) => {
         }
 
         fossilFuelData = [
-            { name: "coel", y: coal },
+            { name: "Coel", y: coal },
             { name: "Petroleum Liquids", y: pliquids },
             { name: "Petroleum Coke", y: pcoke },
             { name: "Natural gas", y: ngas },

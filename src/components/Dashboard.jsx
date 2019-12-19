@@ -6,14 +6,15 @@ class Dashboard extends Component {
         return (
             <div className="row">
                 {this.props.charts && 
-                   this.props.charts.map(chart => {
+                   this.props.charts.map((chart, index) => {
+                       debugger;
                        return (
                            <div className="col-xs-12 col-sm-6 mb-2">
                                <Chart
-                               data={chart.series}
+                               data={chart.serie}
                                userConfig={this.props.userConfig}
                                titleName={chart.title}
-                    
+                               key={index}
                                />
                            </div>
                        );
