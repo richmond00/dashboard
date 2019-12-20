@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import template from './components/template';
+import Title from './components/Title';
 import Selection from './components/Selection';
 import Dashboard from './components/Dashboard.jsx';
 import dataProcessing, {
@@ -62,14 +63,7 @@ class App extends Component {
         debugger;
         return (
             <>
-            <div className="container bg-light">
-                <h1 className="text-center mt-5">
-                    Net Energy Generation in the United States
-                </h1>
-                <p className="text-center">
-                    Source: <a href="https://www.eia.gov">U.S. Engergy Information Administration</a>{" "}
-                </p>
-            </div>
+            <Title />
             <div className="container mb-5 pb-3 bg-light">
                 <div className={"text-center mb-0 pt-3 bold" + (this.state.msg !== "Select the range" ? "text-danger" : "")}>
                 <strong>{this.state.msg}</strong>
