@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './App.css';
 import template from './components/template';
 import Title from './components/Title';
 import Selection from './components/Selection';
@@ -32,7 +33,6 @@ class App extends Component {
     }
 
     handleSubmit = e => {
-        debugger;
         let msg = dataProcessing(this.state.yearFrom, this.state.yearTo, this.state.msg);
         this.copyDataSeries({msg});
         e.preventDefault();
@@ -60,12 +60,16 @@ class App extends Component {
     }
 
     render() {
-        debugger;
         return (
             <>
             <Title />
             <div className="container mb-5 pb-3 bg-light">
-                <div className={"text-center mb-0 pt-3 bold" + (this.state.msg !== "Select the range" ? "text-danger" : "")}>
+                <div 
+                  className={
+                    "text-center mb-0 pt-3 bold " + 
+                    (this.state.msg !== "Select the range" ? "text-danger" : "")
+                  }
+                >
                 <strong>{this.state.msg}</strong>
                 </div>
                 <Selection
