@@ -10,6 +10,8 @@ import dataProcessing, {
     renewableEnergyData,
     biomassData
 } from './components/dataProcessing'
+import dataProcessing2 from './components/dataProcessing2';
+import axios from 'axios';
 
 class App extends Component {
     state = template;
@@ -28,6 +30,11 @@ class App extends Component {
     };
 
     componentDidMount() {
+        //dataProcessing2();
+        axios.get('../boxoffice2019.json')
+          .then( res => dataProcessing2(res.data) )
+          .catch( err => console.log(err) );
+
         dataProcessing(this.state.yearFrom, this.state.yearTo, this.state.msg);
         this.copyDataSeries();
     }
