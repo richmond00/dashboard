@@ -9,7 +9,9 @@ class Dashboard extends Component {
         return (
             <Row className="mt-3 bg-light">
                 <Col xs={12} sm={6} md={4}>
-                    <RankTable  />
+                    <RankTable  
+                      data={this.props.data}
+                    />
                 </Col>
             </Row>
         )
