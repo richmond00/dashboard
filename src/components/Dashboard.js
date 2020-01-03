@@ -8,11 +8,20 @@ class Dashboard extends Component {
     render() {
         return (
             <Row className="mt-3 bg-light">
-                <Col xs={12} sm={6} md={4}>
-                    <RankTable  
-                      data={this.props.data}
-                    />
-                </Col>
+                {this.props.data.map((data, index) => {
+                    return (
+                        <Col xs={12} sm={6} md={4} key={index}>
+                            <RankTable  
+                                data={data}
+                            />
+                        </Col>
+                    )
+                })
+
+                }
+
+
+
             </Row>
         )
     }

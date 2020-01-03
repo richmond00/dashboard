@@ -16,6 +16,11 @@ class App extends Component {
                 col1: "겨울왕국2",
                 col2: "103,000"
             },
+            {
+                id: 3,
+                col1: "겨울왕국",
+                col2: "3,000"
+            },
         ]
     }
 
