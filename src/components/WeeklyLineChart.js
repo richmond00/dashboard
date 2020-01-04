@@ -12,6 +12,10 @@ const WeeklyLineChart = () => {
             texxt: 'My Chart'
         },
 
+        xAxis: {
+            categories: ['1/2', '1/3', '1/4', '1/5', '1/6', '1/7']
+        },
+
         series: [
             {
                 data: [1, 2, 1, 4, 3, 6]

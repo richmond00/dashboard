@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container';
 import Title from './components/Title';
 import Dashboard from './components/Dashboard';
+import axios from 'axios';
+import defaultDataProcessing from './components/dataProcessing';
 
 class App extends Component {
     state = {//관객수, 누적관객수, 스크린수
@@ -21,8 +23,25 @@ class App extends Component {
             { id: 5, movieNm: "제목10", value: 30000 },
         ],
     }
+    copyData = (obj = {}) => {
+        debugger;
+        this.setState({
+            tableData: obj.tableData
+        })
+    }
+    
+
+    componentDidMount() {
+        let date = '20190104';
+        axios.get('../2019.json')
+          .then( res => {
+            let processedData = defaultDataProcessing(res, date);
+            this.copyData(processedData);
+          }).chatch( err => console.log(err) );
+    }
 
     render() {
+        debugger;
         return (
             <Container>
                 <Title />

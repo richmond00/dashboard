@@ -20,7 +20,7 @@ const RankTable = (props) => {
                             )
                         })}
                         <tr>
-                            <td colspan="2">More...</td>
+                            <td colSpan="2">More...</td>
                         </tr>
                     </tbody>
                 </Table>
