@@ -16,10 +16,10 @@ class Title extends Component {
     
     render() {
         return (
-            <Row className="mt-5">
+            <Row className="mt-3">
                 <Col className="bg-light">
                     <h1 className="text-center">
-                        한국 박스오피스 {" "} <small>{this.state.date}</small>  
+                        대시보드 타이틀 {" "} <small>{this.state.date}</small>  
                     </h1>
                     <p className="text-center">
                         Source: <a href="https://kofic.or.kr/kofic/">영화진흥위원회</a>

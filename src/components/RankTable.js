@@ -5,11 +5,11 @@ const RankTable = (props) => {
     console.log(props.tableData);
     return (
         <div className="bg-white">
-            <div className="mt-3">
+            <div className="mt-3 border-bottom">
                 <h5>타이틀</h5>
             </div>
             <div>
-                <Table className="bg-white mt-2">
+                <Table bordered size="" className="bg-white mt-2">
                     <tbody>
                         {props.tableData.map((data, index) => {
                             return (
@@ -18,11 +18,14 @@ const RankTable = (props) => {
                                     <td>{data.value}</td>
                                 </tr>
                             )
-
                         })}
+                        <tr>
+                            <td colspan="2">More...</td>
+                        </tr>
                     </tbody>
                 </Table>
             </div>
+            
         </div>
     )
 
