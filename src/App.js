@@ -6,47 +6,50 @@ import axios from 'axios';
 import defaultDataProcessing from './components/dataProcessing';
 
 class App extends Component {
-    state = {//관객수, 누적관객수, 스크린수
-        dailyAudit: [
-            { id: 1, movieNm: "제목1", value: 23000 },
-            { id: 2, movieNm: "제목2", value: 13000 },
-            { id: 3, movieNm: "제목3", value: 9000 },
-            { id: 4, movieNm: "제목4", value: 7800 },
-            { id: 5, movieNm: "제목5", value: 300 },
-        ],
-
-        accAudit: [
-            { id: 1, movieNm: "제목6", value: 223000 },
-            { id: 2, movieNm: "제목7", value: 313000 },
-            { id: 3, movieNm: "제목8", value: 89000 },
-            { id: 4, movieNm: "제목9", value: 72800 },
-            { id: 5, movieNm: "제목10", value: 30000 },
-        ],
+    constructor() {
+        super();
+        this.state = { 
+            loading: true,
+            error: "",
+            data: null 
+        };
     }
-    copyData = (obj = {}) => {
-        debugger;
-        this.setState({
-            tableData: obj.tableData
-        })
+
+    loadData = () => {
+        this.setState({ loading: true });
+        return axios.get('../2019.json')
+                    .then( response => {
+                        let date = '20190104',
+                            processedData = null;
+                        console.log(response);
+                        processedData  = defaultDataProcessing(response, date);
+                        this.setState({
+                            data: processedData,
+                            loading: false,
+                            error: false
+                        });
+                    })
+                    .catch( error => {
+                        console.log('error: ', error);
+                        this.setState({
+                            error: `${error}`,
+                            loading: false
+                        });
+                    });
     }
     
-
     componentDidMount() {
-        let date = '20190104';
-        axios.get('../2019.json')
-          .then( res => {
-            let processedData = defaultDataProcessing(res, date);
-            this.copyData(processedData);
-          }).chatch( err => console.log(err) );
+        this.loadData();
     }
 
     render() {
-        debugger;
+        const { loading, error, data } = this.state;
+
         return (
             <Container>
                 <Title />
                 <Dashboard 
-                  data={this.state}
+                  data = {data}
                 />
             </Container>
         )

@@ -7,16 +7,17 @@ import PieChart from './PieChart';
 import WeeklyLineChart from './WeeklyLineChart';
 
 class Dashboard extends Component {
+    
     render() {
-        console.log(this.props.data);
+        debugger;
         return (
             <>
             <Row className="mt-3 bg-light">
-                {Object.keys(this.props.data).map((key, index) => {
+                {Object.keys(this.props.data.tableData).map((key, index) => {
                     return (
                         <Col xs={12} sm={4} md={4} key={index}>
                             <RankTable
-                              tableData={this.props.data[key]}
+                              tableData={this.props.data.tableData[key]}
                               className="dashboard-widget"
                             />
                         </Col>
