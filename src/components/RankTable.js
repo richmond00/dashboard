@@ -2,8 +2,7 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';
 
 const RankTable = (props) => {
-    
-
+    console.log('ranktable ',props)
     return (
         
         <div className="bg-white">
@@ -13,7 +12,7 @@ const RankTable = (props) => {
             <div>
                 <Table bordered size="" className="bg-white mt-2">
                     <tbody>
-                        {props.tableData.map((data, index) => {
+                        {props.data && props.data.map((data, index) => {
                             return (
                                 <tr key={index}>
                                     <td>{data.movieName}</td>

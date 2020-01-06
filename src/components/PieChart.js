@@ -2,7 +2,10 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-const PieChart = () => {
+const PieChart = (props) => {
+    console.log('piechart', props.data);
+    const pieChartData = props.data ? props.data : null;
+
     const options = {
         chart: {
             type: 'pie',
@@ -24,22 +27,7 @@ const PieChart = () => {
         },
 
         series: [{
-            data: [{
-                name: 'Chrome',
-                y: 61.41,
-            }, {
-                name: 'Internet Explorer',
-                y: 11.84
-            }, {
-                name: 'Firefox',
-                y: 10.85
-            }, {
-                name: 'Edge',
-                y: 4.67
-            }, {
-                name: 'Safari',
-                y: 4.18
-            }]
+            data: pieChartData
 
         }]
     };

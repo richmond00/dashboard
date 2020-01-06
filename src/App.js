@@ -9,9 +9,12 @@ class App extends Component {
     constructor() {
         super();
         this.state = { 
-            loading: true,
+            isLoading: true,
             error: "",
-            data: null 
+            dailyAttendence: null,
+            cumulativeAttendence: null,
+            pieChartData: null,
+            lineChartData: null
         };
     }
 
@@ -23,10 +26,14 @@ class App extends Component {
                             processedData = null;
                         console.log(response);
                         processedData  = defaultDataProcessing(response, date);
+                        debugger;
                         this.setState({
-                            data: processedData,
-                            loading: false,
-                            error: false
+                            ...this.state, ...{
+                                dailyAttendence: processedData.dailyAttendence,
+                                cumulativeAttendence: processedData.cumulativeAttendence,
+                                loading: false,
+                                error: false
+                            }   
                         });
                     })
                     .catch( error => {
@@ -38,19 +45,41 @@ class App extends Component {
                     });
     }
     
-    componentDidMount() {
-        this.loadData();
+    async componentDidMount() {
+        //this.loadData();
+        let defaultData = await axios.get('../2019.json')
+                                    .then( response => {
+                                        let date = '20190104';
+                                        return defaultDataProcessing(response, date);
+                                    })
+                                    .catch( error => {
+                                        console.log('error: ', error);
+                                    })
+        
+        const dailyAttendence = defaultData.dailyAttendence,
+              cumulativeAttendence = defaultData.cumulativeAttendence,
+              pieChartData  = defaultData.pieChartData,
+              lineChartData = defaultData.lineChartData;
+        
+        this.setState({
+            ...this.state, ...{
+                isLoading: false,
+                dailyAttendence,
+                cumulativeAttendence,
+                pieChartData,
+                lineChartData
+            }
+        })
+                                    
     }
 
     render() {
-        const { loading, error, data } = this.state;
+        const { isLoading, dailyAttendence, cumulativeAttendence } = this.state;
 
         return (
             <Container>
                 <Title />
-                <Dashboard 
-                  data = {data}
-                />
+                <Dashboard />
             </Container>
         )
     }

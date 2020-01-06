@@ -18,9 +18,11 @@ const WeeklyLineChart = () => {
 
         series: [
             {
+                name: 'www',
                 data: [1, 2, 1, 4, 3, 6]
             },
             {
+                name: 'ddd',
                 data: [3, 4, 9, 9, 1, 2]
             }   
         ]
