@@ -29,6 +29,31 @@ const defaultDataProcessing = (data, date) => {
         dateArray.push(date);
     }
     debugger;
+    //dateArray
+    
+    // series { name: 'movei1', data: [111, 222, 111, 111, 111, 111, 111] }
+
+    // let lineData = [
+    //         { name: 'movie1', data: [111,222,333,444,555,666,777] },
+    //         { name: 'movie2', data: [111,222,333,444,555,666,777]},
+    //         { name: 'movie3', data: [111,222,333,444,555,666,777]},
+    //         { name: 'movie4', data: [111,222,333,444,555,666,777]},
+    //         { name: 'movie5', data: [111,222,333,444,555,666,777]}
+    // ]  
+
+    // 전체 데이터에서 날짜를 뽑는다
+    let myData = [];
+    dateArray.forEach(targetDate => {
+        let tempDate = rawdata.filter( data => data.date === targetDate );
+        myData.push(tempDate);
+    });
+    debugger;
+
+    // 각 날짜에서 해당 영화를 뽑는다
+
+    // 있으면 데이터 집어넣고 없으면 null로 집어넣는다
+
+
 
     return processedData;
 }
