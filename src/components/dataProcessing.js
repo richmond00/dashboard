@@ -6,6 +6,8 @@ const defaultDataProcessing = (data, date) => {
         pieChartData: [],
         lineChartData: []
     }
+    let movieName = [],
+        dateArray = [];
 
     let rawdata = data.data.data,
         targetData = rawdata.filter( data => data.date === date );
@@ -19,18 +21,36 @@ const defaultDataProcessing = (data, date) => {
         processedData['cumulativeAttendence'].push(cumulativeAttendence);
         processedData['pieChartData'].push(pieChartData);
         //processedData['lineChartData'];
+        movieName.push(targetData[i].movieNm);
     }
 
-    // targetData.forEach( (data, index) => {
-    //     let dailyAttendence = { id: index, movieName: data.movieNm, value: data.audiCnt },
-    //         cumulativeAttendence = { id: index, movieName: data.movieNm, value: data.audiAcc };
+    for(let i = -1; i > -8; i--) {
+        let date = getYesterday(i);
+        dateArray.push(date);
+    }
+    debugger;
 
-    //     processedData['dailyAttendence'].push(dailyAttendence);
-    //     processedData['cumulativeAttendence'].push(cumulativeAttendence);
-    // });
-    
     return processedData;
 }
 
+const getYesterday = (i) => {
+    let date = new Date();
+    date.setDate(date.getDate() + i);
+
+    let month = '' + (date.getMonth() + 1),
+        day = '' + date.getDate(),
+        year = date.getFullYear() - 1;
+    
+    if (month.length < 2) {
+        month = '0' + month;
+    }
+
+    if (day.length < 2) {
+        day = '0' + day;
+    }
+
+    return [year, month, day].join('');
+}
 
 export default defaultDataProcessing;
+export { getYesterday };

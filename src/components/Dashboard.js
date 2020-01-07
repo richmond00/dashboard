@@ -6,7 +6,8 @@ import RankTable from './RankTable';
 import PieChart from './PieChart';
 import WeeklyLineChart from './WeeklyLineChart';
 import axios from 'axios';
-import defaultDataProcessing from './dataProcessing';
+import defaultDataProcessing, { getYesterday } from './dataProcessing';
+
 
 class Dashboard extends Component {
     constructor() {
@@ -22,10 +23,9 @@ class Dashboard extends Component {
     }
 
     async componentDidMount() {
-        //this.loadData();
         let defaultData = await axios.get('../2019.json')
                                     .then( response => {
-                                        let date = '20190104';
+                                        let date =  getYesterday(-1);
                                         return defaultDataProcessing(response, date);
                                     })
                                     .catch( error => {
