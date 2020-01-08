@@ -7,7 +7,8 @@ const defaultDataProcessing = (data, date) => {
         lineChartData: []
     }
     let movieName = [],
-        dateArray = [];
+        dateArray = [],
+        targetMovies = [];
 
     let rawdata = data.data.data,
         targetData = rawdata.filter( data => data.date === date );
@@ -15,20 +16,23 @@ const defaultDataProcessing = (data, date) => {
     for( let i = 0; i < 5; i++) {
         let dailyAttendence = { id: i, movieName: targetData[i].movieNm, value: targetData[i].audiCnt },
             cumulativeAttendence = { id: i, movieName: targetData[i].movieNm, value: targetData[i].audiAcc },
-            pieChartData = { name: targetData[i].movieNm, y: targetData[i].scrnCnt }
+            pieChartData = { name: targetData[i].movieNm, y: targetData[i].scrnCnt },
+            tempObject = { name: targetData[i].movieNm, data: [] };
         
         processedData['dailyAttendence'].push(dailyAttendence);
         processedData['cumulativeAttendence'].push(cumulativeAttendence);
         processedData['pieChartData'].push(pieChartData);
         //processedData['lineChartData'];
-        movieName.push(targetData[i].movieNm);
+        movieName.push(tempObject);
+        targetMovies.push(targetData[i].movieNm);
+        
     }
 
     for(let i = -1; i > -8; i--) {
         let date = getYesterday(i);
         dateArray.push(date);
     }
-    debugger;
+
     //dateArray
     
     // series { name: 'movei1', data: [111, 222, 111, 111, 111, 111, 111] }
@@ -44,12 +48,17 @@ const defaultDataProcessing = (data, date) => {
     // 전체 데이터에서 날짜를 뽑는다
     let myData = [];
     dateArray.forEach(targetDate => {
-        let tempDate = rawdata.filter( data => data.date === targetDate );
-        myData.push(tempDate);
+        myData.push(rawdata.filter( data => data.date === targetDate));
     });
+
+
     debugger;
 
+    let myData2 = {};
     // 각 날짜에서 해당 영화를 뽑는다
+
+ 
+    //만약 영화이름과 linedata key값이 일치하면 audiCnt를 넣는다<div className=""></div>
 
     // 있으면 데이터 집어넣고 없으면 null로 집어넣는다
 
