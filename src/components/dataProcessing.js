@@ -51,6 +51,30 @@ const defaultDataProcessing = (data, date) => {
         myData.push(rawdata.filter( data => data.date === targetDate));
     });
 
+    let myArr = [].concat( ...myData );
+    let lineData = [];
+    let tempArray = [];
+    targetMovies.forEach(movie => {
+        tempArray.push(myArr.filter(data => data.movieNm === movie));
+    });
+    let myArr2 = [].concat( ...tempArray );
+    debugger;
+
+    myArr2.forEach(data => {
+        for( let i = dateArray.length - 1; i >= 0 ; i-- ) {
+            let targetDate = dateArray[i];
+            if( data.date === targetDate ) {
+                
+
+            }
+
+    
+    
+        }            
+    
+    });
+
+   
 
     debugger;
 
