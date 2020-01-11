@@ -2,7 +2,10 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-const WeeklyLineChart = () => {
+const WeeklyLineChart = (props) => {
+    const series = props.data ? props.data.series : null,
+          categories = props.data ? props.data.categories : null;
+
     const options = {
         chart: {
             type: 'spline'
@@ -13,19 +16,10 @@ const WeeklyLineChart = () => {
         },
 
         xAxis: {
-            categories: ['1/2', '1/3', '1/4', '1/5', '1/6', '1/7']
+            categories: categories
         },
 
-        series: [
-            {
-                name: 'www',
-                data: [1, 2, 1, 4, 3, 6]
-            },
-            {
-                name: 'ddd',
-                data: [3, 4, 9, 9, 1, 2]
-            }   
-        ]
+        series: series
     };
 
     return (

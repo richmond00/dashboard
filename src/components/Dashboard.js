@@ -53,7 +53,7 @@ class Dashboard extends Component {
 
     
     render() {
-        const { isLoading, dailyAttendence, cumulativeAttendence, pieChartData } = this.state;
+        const { isLoading, dailyAttendence, cumulativeAttendence, pieChartData, lineChartData } = this.state;
 
         return (
             <>
@@ -71,9 +71,9 @@ class Dashboard extends Component {
                 </Col>
             </Row>
             
-            <Row className="mt-3 bg-light">
+            <Row className="my-3 bg-light">
                 <Col xs={12} sm={12} md={12}>
-                    <WeeklyLineChart />
+                    <WeeklyLineChart data={lineChartData} />
                 </Col>
             </Row>
             </>

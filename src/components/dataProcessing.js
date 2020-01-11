@@ -4,7 +4,7 @@ const defaultDataProcessing = (data, date) => {
         dailyAttendence: [],
         cumulativeAttendence: [],
         pieChartData: [],
-        lineChartData: []
+        lineChartData: { series: null, categories: null }
     }
     let movieName = [],
         dateArray = [],
@@ -55,37 +55,31 @@ const defaultDataProcessing = (data, date) => {
     let lineData = [];
     let tempArray = [];
     targetMovies.forEach(movie => {
-        tempArray.push(myArr.filter(data => data.movieNm === movie));
+        let filtered = myArr.filter(data => data.movieNm === movie),
+            tempObj = { name: movie, data: null },
+            tempArr = [];
+            
+        for(let i = 6; i >= 0; i--) {
+            let targetDate = dateArray[i],
+                tempElement = filtered.find( data => data.date === targetDate ),
+                tempValue = null;
+
+            if( filtered[i] && filtered[i].date === targetDate) {
+                tempValue = filtered[i].audiCnt;
+
+            } else if (tempElement) {
+                tempValue = tempElement.audiCnt;
+            } 
+            tempArr.push(tempValue);
+        }
+
+        tempObj.data = tempArr;
+        tempArray.push(tempObj);
     });
-    let myArr2 = [].concat( ...tempArray );
-    debugger;
-
-    myArr2.forEach(data => {
-        for( let i = dateArray.length - 1; i >= 0 ; i-- ) {
-            let targetDate = dateArray[i];
-            if( data.date === targetDate ) {
-                
-
-            }
-
+    dateArray.sort();
     
-    
-        }            
-    
-    });
-
-   
-
-    debugger;
-
-    let myData2 = {};
-    // 각 날짜에서 해당 영화를 뽑는다
-
- 
-    //만약 영화이름과 linedata key값이 일치하면 audiCnt를 넣는다<div className=""></div>
-
-    // 있으면 데이터 집어넣고 없으면 null로 집어넣는다
-
+    processedData['lineChartData']['series'] = tempArray;
+    processedData['lineChartData']['categories'] = dateArray;
 
 
     return processedData;
