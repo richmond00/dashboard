@@ -1,79 +1,75 @@
+import axios from 'axios';
 import React, { Component } from 'react';
-import './Dashboard.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import RankTable from './RankTable';
-import PieChart from './PieChart';
-import WeeklyLineChart from './WeeklyLineChart';
-import axios from 'axios';
-import defaultDataProcessing, { getYesterday } from './dataProcessing';
+import Attendance from './Attendance';
+import Theaters from './Theaters';
+import Trend from './Trend';
 
+import getDefaultData, { getYesterday } from '../common/dataProcessing';
 
 class Dashboard extends Component {
     constructor() {
         super();
         this.state = { 
             isLoading: true,
+            daily: null,
+            cumulative: null,
+            theaters: null,
+            trend: null,
             error: "",
-            dailyAttendence: null,
-            cumulativeAttendence: null,
-            pieChartData: null,
-            lineChartData: null
         };
     }
 
     async componentDidMount() {
         let defaultData = await axios.get('../2019.json')
-                                    .then( response => {
-                                        let date =  getYesterday(-1);
-                                        return defaultDataProcessing(response, date);
-                                    })
-                                    .catch( error => {
+                                     .then( response => {
+                                         let date =  getYesterday(-1);
+                                         return getDefaultData(response, date);
+                                      })
+                                     .catch( error => {
                                         console.log('error: ', error);
-                                    })
+                                     })
         
-        const dailyAttendence = defaultData.dailyAttendence,
-              cumulativeAttendence = defaultData.cumulativeAttendence,
-              pieChartData  = defaultData.pieChartData,
-              lineChartData = defaultData.lineChartData;
+        const daily = defaultData.daily,
+              cumulative = defaultData.cumulative,
+              theaters  = defaultData.theaters,
+              trend = defaultData.trend;
         
         this.setState({
             ...this.state, ...{
                 isLoading: false,
-                dailyAttendence,
-                cumulativeAttendence,
-                pieChartData,
-                lineChartData
+                daily,
+                cumulative,
+                theaters,
+                trend
             }
         })
                                     
     }
-
-
-
     
     render() {
-        const { isLoading, dailyAttendence, cumulativeAttendence, pieChartData, lineChartData } = this.state;
+        const { isLoading, daily, cumulative, theaters, trend } = this.state;
 
         return (
             <>
             <Row className="mt-3 bg-light">
                 <Col xs={12} sm={4} md={4}>
-                    <RankTable data={dailyAttendence}/>
+                    <Attendance data={daily}/>
                 </Col>
 
                 <Col xs={12} sm={4} md={4}>
-                    <RankTable data={cumulativeAttendence}/>
+                    <Attendance data={cumulative}/>
                 </Col>
 
                 <Col xs={12} sm={4} md={4}>
-                    <PieChart data={pieChartData} />
+                    <Theaters data={theaters} />
                 </Col>
             </Row>
             
             <Row className="my-3 bg-light">
                 <Col xs={12} sm={12} md={12}>
-                    <WeeklyLineChart data={lineChartData} />
+                    <Trend data={trend} />
                 </Col>
             </Row>
             </>

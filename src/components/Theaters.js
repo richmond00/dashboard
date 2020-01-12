@@ -2,8 +2,7 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-const PieChart = (props) => {
-    console.log('piechart', props.data);
+const Theaters = (props) => {
     const pieChartData = props.data ? props.data : null;
 
     const options = {
@@ -47,4 +46,4 @@ const PieChart = (props) => {
     )
 }
 
-export default PieChart;
+export default Theaters;

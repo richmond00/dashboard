@@ -1,10 +1,8 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 
-const RankTable = (props) => {
-    console.log('ranktable ',props)
+const Attendance = (props) => {
     return (
-        
         <div className="bg-white">
             <div className="mt-3 border-bottom">
                 <h5>타이틀</h5>
@@ -26,12 +24,8 @@ const RankTable = (props) => {
                     </tbody>
                 </Table>
             </div>
-            
         </div>
     )
-
 }
 
-
-
-export default RankTable;
+export default Attendance;

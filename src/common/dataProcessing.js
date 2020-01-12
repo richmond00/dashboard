@@ -1,11 +1,11 @@
-
-const defaultDataProcessing = (data, date) => {
-    let processedData = {
-        dailyAttendence: [],
-        cumulativeAttendence: [],
-        pieChartData: [],
-        lineChartData: { series: null, categories: null }
+const getDefaultData = (data, date) => {
+    let defaultData = {
+        daily: [],
+        cumulative: [],
+        theaters: [],
+        trend: { series: null, categories: null }
     }
+
     let movieName = [],
         dateArray = [],
         targetMovies = [];
@@ -13,46 +13,34 @@ const defaultDataProcessing = (data, date) => {
     let rawdata = data.data.data,
         targetData = rawdata.filter( data => data.date === date );
     
+    // 1. daily, cumulative, theaters
     for( let i = 0; i < 5; i++) {
-        let dailyAttendence = { id: i, movieName: targetData[i].movieNm, value: targetData[i].audiCnt },
-            cumulativeAttendence = { id: i, movieName: targetData[i].movieNm, value: targetData[i].audiAcc },
-            pieChartData = { name: targetData[i].movieNm, y: targetData[i].scrnCnt },
+        let daily = { id: i, movieName: targetData[i].movieNm, value: targetData[i].audiCnt },
+            cumulative = { id: i, movieName: targetData[i].movieNm, value: targetData[i].audiAcc },
+            theaters = { name: targetData[i].movieNm, y: targetData[i].scrnCnt },
             tempObject = { name: targetData[i].movieNm, data: [] };
         
-        processedData['dailyAttendence'].push(dailyAttendence);
-        processedData['cumulativeAttendence'].push(cumulativeAttendence);
-        processedData['pieChartData'].push(pieChartData);
-        //processedData['lineChartData'];
+        defaultData['daily'].push(daily);
+        defaultData['cumulative'].push(cumulative);
+        defaultData['theaters'].push(theaters);
         movieName.push(tempObject);
         targetMovies.push(targetData[i].movieNm);
-        
     }
 
+    // 2. Trend
     for(let i = -1; i > -8; i--) {
         let date = getYesterday(i);
         dateArray.push(date);
     }
 
-    //dateArray
     
-    // series { name: 'movei1', data: [111, 222, 111, 111, 111, 111, 111] }
-
-    // let lineData = [
-    //         { name: 'movie1', data: [111,222,333,444,555,666,777] },
-    //         { name: 'movie2', data: [111,222,333,444,555,666,777]},
-    //         { name: 'movie3', data: [111,222,333,444,555,666,777]},
-    //         { name: 'movie4', data: [111,222,333,444,555,666,777]},
-    //         { name: 'movie5', data: [111,222,333,444,555,666,777]}
-    // ]  
-
-    // 전체 데이터에서 날짜를 뽑는다
     let myData = [];
     dateArray.forEach(targetDate => {
         myData.push(rawdata.filter( data => data.date === targetDate));
     });
 
     let myArr = [].concat( ...myData );
-    let lineData = [];
+    
     let tempArray = [];
     targetMovies.forEach(movie => {
         let filtered = myArr.filter(data => data.movieNm === movie),
@@ -78,11 +66,11 @@ const defaultDataProcessing = (data, date) => {
     });
     dateArray.sort();
     
-    processedData['lineChartData']['series'] = tempArray;
-    processedData['lineChartData']['categories'] = dateArray;
+    defaultData['trend']['series'] = tempArray;
+    defaultData['trend']['categories'] = dateArray;
 
 
-    return processedData;
+    return defaultData;
 }
 
 const getYesterday = (i) => {
@@ -104,5 +92,5 @@ const getYesterday = (i) => {
     return [year, month, day].join('');
 }
 
-export default defaultDataProcessing;
+export default getDefaultData;
 export { getYesterday };

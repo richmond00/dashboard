@@ -2,7 +2,7 @@ import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
-const WeeklyLineChart = (props) => {
+const Trend = (props) => {
     const series = props.data ? props.data.series : null,
           categories = props.data ? props.data.categories : null;
 
@@ -30,4 +30,4 @@ const WeeklyLineChart = (props) => {
     )
 }
 
-export default WeeklyLineChart; 
+export default Trend; 
