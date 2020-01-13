@@ -1,11 +1,12 @@
 const getDefaultData = (data, date) => {
     let defaultData = {
+        title: { date: date, daily: "관객수", cumulative: "누적관객수", theaters: "상영관수", trend: "" },
         daily: [],
         cumulative: [],
         theaters: [],
         trend: { series: null, categories: null }
     }
-
+debugger;
     let movieName = [],
         dateArray = [],
         targetMovies = [];
@@ -15,8 +16,8 @@ const getDefaultData = (data, date) => {
     
     // 1. daily, cumulative, theaters
     for( let i = 0; i < 5; i++) {
-        let daily = { id: i, movieName: targetData[i].movieNm, value: targetData[i].audiCnt },
-            cumulative = { id: i, movieName: targetData[i].movieNm, value: targetData[i].audiAcc },
+        let daily = { movieCode: `daily${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiCnt },
+            cumulative = { movieCode: `cumulative${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiAcc },
             theaters = { name: targetData[i].movieNm, y: targetData[i].scrnCnt },
             tempObject = { name: targetData[i].movieNm, data: [] };
         

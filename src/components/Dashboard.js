@@ -13,12 +13,14 @@ class Dashboard extends Component {
         super();
         this.state = { 
             isLoading: true,
+            title: null,
             daily: null,
             cumulative: null,
             theaters: null,
             trend: null,
             error: "",
         };
+        this.handleMovienameClick = this.handleMovienameClick.bind(this);
     }
 
     async componentDidMount() {
@@ -31,7 +33,8 @@ class Dashboard extends Component {
                                         console.log('error: ', error);
                                      })
         
-        const daily = defaultData.daily,
+        const title = defaultData.title,
+              daily = defaultData.daily,
               cumulative = defaultData.cumulative,
               theaters  = defaultData.theaters,
               trend = defaultData.trend;
@@ -39,31 +42,46 @@ class Dashboard extends Component {
         this.setState({
             ...this.state, ...{
                 isLoading: false,
+                title,
                 daily,
                 cumulative,
                 theaters,
                 trend
             }
-        })
-                                    
+        })                 
+    }
+
+    handleMovienameClick(event) {
+        console.log('movie clicked', event.target.getAttribute('data-title'));
     }
     
     render() {
-        const { isLoading, daily, cumulative, theaters, trend } = this.state;
+        const { isLoading, title, daily, cumulative, theaters, trend } = this.state;
 
         return (
             <>
             <Row className="mt-3 bg-light">
                 <Col xs={12} sm={4} md={4}>
-                    <Attendance data={daily}/>
+                    <Attendance
+                      title={title && title.daily}
+                      data={daily}
+                      click={this.handleMovienameClick}
+                    />
                 </Col>
 
                 <Col xs={12} sm={4} md={4}>
-                    <Attendance data={cumulative}/>
+                    <Attendance
+                      title={title && title.cumulative}
+                      data={cumulative}
+                      click={this.handleMovienameClick}
+                    />
                 </Col>
 
                 <Col xs={12} sm={4} md={4}>
-                    <Theaters data={theaters} />
+                    <Theaters
+                      title={title && title.theaters}
+                      data={theaters}
+                    />
                 </Col>
             </Row>
             

@@ -34,7 +34,7 @@ const Theaters = (props) => {
     return (
         <div className="bg-white">
             <div className="mt-3 border-bottom">
-                <h5>타이틀</h5>
+                <h5>{props && props.title}</h5>
             </div>
             <div>
             <HighchartsReact 

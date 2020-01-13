@@ -12,7 +12,7 @@ const Trend = (props) => {
         },
 
         title: {
-            texxt: 'My Chart'
+            text: undefined
         },
 
         xAxis: {
@@ -23,10 +23,17 @@ const Trend = (props) => {
     };
 
     return (
-        <HighchartsReact 
-          highcharts={Highcharts}
-          options={options}
-        />
+        <div className="bg-white">
+            <div className="mt-3 border-bottom">
+                <h5>타이틀</h5>
+            </div>
+            <div>
+            <HighchartsReact 
+              highcharts={Highcharts}
+              options={options}
+            />
+            </div>
+        </div>
     )
 }
 
