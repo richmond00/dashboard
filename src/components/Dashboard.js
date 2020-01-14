@@ -6,7 +6,7 @@ import Attendance from './Attendance';
 import Theaters from './Theaters';
 import Trend from './Trend';
 
-import getDefaultData, { getYesterday } from '../common/dataProcessing';
+import getDefaultData, { getNewTrendData, getYesterday } from '../common/dataProcessing';
 
 class Dashboard extends Component {
     constructor() {
@@ -18,6 +18,7 @@ class Dashboard extends Component {
             cumulative: null,
             theaters: null,
             trend: null,
+            rawdata : null,
             error: "",
         };
         this.handleMovienameClick = this.handleMovienameClick.bind(this);
@@ -37,7 +38,8 @@ class Dashboard extends Component {
               daily = defaultData.daily,
               cumulative = defaultData.cumulative,
               theaters  = defaultData.theaters,
-              trend = defaultData.trend;
+              trend = defaultData.trend,
+              rawdata = defaultData.rawdata;
         
         this.setState({
             ...this.state, ...{
@@ -46,13 +48,27 @@ class Dashboard extends Component {
                 daily,
                 cumulative,
                 theaters,
-                trend
+                trend,
+                rawdata
             }
         })                 
     }
 
     handleMovienameClick(event) {
-        console.log('movie clicked', event.target.getAttribute('data-title'));
+        //console.log('movie clicked', event.target.getAttribute('data-title'));
+        // 1. 데이터 재처리
+        let clicked = event.target.getAttribute('data-title'),
+            trend = getNewTrendData(this.state.rawdata, clicked);
+
+
+        //2. 재처리된 데이터 setState로 변경
+        this.setState({
+            ...this.state, ...{
+                isLoading: false,
+                trend
+            }
+        });     
+
     }
     
     render() {

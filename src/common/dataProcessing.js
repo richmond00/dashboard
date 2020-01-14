@@ -4,9 +4,10 @@ const getDefaultData = (data, date) => {
         daily: [],
         cumulative: [],
         theaters: [],
-        trend: { series: null, categories: null }
+        trend: { series: null, categories: null },
+        rawdata: data.data.data,
     }
-debugger;
+
     let movieName = [],
         dateArray = [],
         targetMovies = [];
@@ -74,6 +75,39 @@ debugger;
     return defaultData;
 }
 
+const getNewTrendData = (rawdata, clicked) => {
+    let newTrendData = null,
+        categories = [],
+        series = [],
+        data = [],
+        filtered = null,
+        targetMovieCode = clicked.replace(/daily|cumulative/g, ""),
+        dataType = clicked.replace(/[0-9]*/g, ""),
+        yesterday = getYesterday(-1),
+        lastIndex = 0,
+        value = '';
+
+    // clicked 처리
+    
+    // rawdata에서 clicked영화만 추출
+    filtered = rawdata.filter( rawdata => rawdata.movieCd === targetMovieCode );
+
+    // filter를 오늘까지 자름
+    lastIndex = filtered.findIndex( filtered => filtered.date === yesterday );
+    value = dataType === "daily" ? "audiCnt" : "audiAcc"
+    for(let i = 0; i <= lastIndex; i++) {
+        categories.push(filtered[i].date);
+        data.push(filtered[i][value]);
+    }
+
+    // trend data구조에 맞게 처리
+    series.push({ name: filtered[0].movieNm, data });
+    newTrendData = { categories, series };
+
+    // return trend data
+    return newTrendData;
+}
+
 const getYesterday = (i) => {
     let date = new Date();
     date.setDate(date.getDate() + i);
@@ -94,4 +128,4 @@ const getYesterday = (i) => {
 }
 
 export default getDefaultData;
-export { getYesterday };
+export { getNewTrendData, getYesterday };
