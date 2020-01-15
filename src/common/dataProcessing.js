@@ -14,22 +14,33 @@ const getDefaultData = (data, date) => {
 
     let rawdata = data.data.data,
         targetData = rawdata.filter( data => data.date === date );
-    
-    // 1. daily, cumulative, theaters
-    for( let i = 0; i < 5; i++) {
+   
+    // 1. daily,
+    for( let i = 0; i < 5; i++ ) {
         let daily = { movieCode: `daily${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiCnt },
-            cumulative = { movieCode: `cumulative${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiAcc },
-            theaters = { name: targetData[i].movieNm, y: targetData[i].scrnCnt },
             tempObject = { name: targetData[i].movieNm, data: [] };
         
         defaultData['daily'].push(daily);
-        defaultData['cumulative'].push(cumulative);
-        defaultData['theaters'].push(theaters);
+
         movieName.push(tempObject);
         targetMovies.push(targetData[i].movieNm);
     }
+    // 2. cumulative
+    targetData.sort((a, b) => b.audiAcc - a.audiAcc);
+    for ( let i = 0; i < 5; i++ ) {
+        let cumulative = { movieCode: `cumulative${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiAcc };
+        defaultData['cumulative'].push(cumulative);
+    }
 
-    // 2. Trend
+    // 3. theaters
+    targetData.sort((a, b) => b.scrnCnt - a.scrnCnt);
+    for( let i = 0; i < 5; i++ ) {
+        //let theaters = { name: targetData[i].movieNm, y: targetData[i].scrnCnt };
+        let theaters = [ targetData[i].movieNm, targetData[i].scrnCnt ];
+        defaultData['theaters'].push(theaters);
+    }
+
+    // 4. Trend
     for(let i = -1; i > -8; i--) {
         let date = getYesterday(i);
         dateArray.push(date);

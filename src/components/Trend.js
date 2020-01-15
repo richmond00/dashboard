@@ -14,9 +14,20 @@ const Trend = (props) => {
         title: {
             text: undefined
         },
+        
+        credits: {
+            enabled: false
+        },
 
         xAxis: {
             categories: categories
+        },
+
+        legend: {
+            align: 'right',
+            layout: 'vertical',
+            verticalAlign: 'top'
+
         },
 
         series: series

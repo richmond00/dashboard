@@ -77,7 +77,7 @@ class Dashboard extends Component {
         return (
             <>
             <Row className="mt-3 bg-light">
-                <Col xs={12} sm={4} md={4}>
+                <Col xs={12} sm={3} md={3}>
                     <Attendance
                       title={title && title.daily}
                       data={daily}
@@ -85,7 +85,7 @@ class Dashboard extends Component {
                     />
                 </Col>
 
-                <Col xs={12} sm={4} md={4}>
+                <Col xs={12} sm={3} md={3}>
                     <Attendance
                       title={title && title.cumulative}
                       data={cumulative}
@@ -93,7 +93,7 @@ class Dashboard extends Component {
                     />
                 </Col>
 
-                <Col xs={12} sm={4} md={4}>
+                <Col xs={12} sm={6} md={6}>
                     <Theaters
                       title={title && title.theaters}
                       data={theaters}

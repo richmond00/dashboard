@@ -4,12 +4,16 @@ import HighchartsReact from 'highcharts-react-official';
 
 const Theaters = (props) => {
     const pieChartData = props.data ? props.data : null;
+    console.log(pieChartData);
 
     const options = {
         chart: {
             type: 'pie',
-           height: 308.8
-            
+           height: 308.8  
+        },
+
+        credits: {
+            enabled: false
         },
     
         title: {
@@ -25,8 +29,18 @@ const Theaters = (props) => {
             }
         },
 
+        legend: {
+            //enabled: true,
+            align: 'right',
+            layout: 'vertical',
+            verticalAlign: 'top'
+
+        },
+
         series: [{
-            data: pieChartData
+
+            data: pieChartData,
+            showInLegend: true,
 
         }]
     };

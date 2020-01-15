@@ -1,10 +1,33 @@
+* {
+  font-size: 0.875rem
+}
+
 .row {
     background: #f8f9fa;
     margin-top: 20px;
   }
   
-  .col {
-    border: solid 1px #6c757d;
-    padding: 10px;
-  }
-  
+.col {
+  /* border: solid 1px #6c757d; */
+  padding: 10px;
+}
+
+h5 {
+  font-size: 1.063rem !important;
+  margin: 8px 10px !important;
+  font-weight: 700 !important;
+  display: inline-block;
+}
+
+.value-align {
+  padding-right: 5px;
+}
+
+.movie-title {
+  color: #0066c0;
+}
+
+.movie-title:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
