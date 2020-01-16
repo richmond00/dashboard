@@ -4,12 +4,11 @@ import HighchartsReact from 'highcharts-react-official';
 
 const Theaters = (props) => {
     const pieChartData = props.data ? props.data : null;
-    console.log(pieChartData);
 
     const options = {
         chart: {
             type: 'pie',
-           height: 308.8  
+           height: 241
         },
 
         credits: {
@@ -24,21 +23,26 @@ const Theaters = (props) => {
             pie: {
                 innerSize: '60%',
                 dataLabels: {
-                    enabled: false
+                    enabled: true,
+                    format: '{y}관',
+                    distance: -20,
                 }
             }
         },
 
         legend: {
-            //enabled: true,
             align: 'right',
             layout: 'vertical',
-            verticalAlign: 'top'
+            verticalAlign: 'top',
+        },
 
+        tooltip: {
+            pointFormatter: function() {
+                return `${this.percentage.toFixed(2)}%`
+            }
         },
 
         series: [{
-
             data: pieChartData,
             showInLegend: true,
 
