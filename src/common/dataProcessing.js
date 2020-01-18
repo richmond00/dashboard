@@ -1,6 +1,7 @@
+
 const getDefaultData = (data, date) => {
     let defaultData = {
-        title: { date: date, daily: "관객수", cumulative: "누적관객수", theaters: "상영관수", trend: "" },
+        title: { date, daily: "관객수", cumulative: "누적관객수", theaters: "상영관수", trend: "" },
         daily: [],
         cumulative: [],
         theaters: [],
@@ -9,7 +10,6 @@ const getDefaultData = (data, date) => {
     }
 
     let movieName = [],
-        dateArray = [],
         targetMovies = [];
 
     let rawdata = data.data.data,
@@ -41,32 +41,33 @@ const getDefaultData = (data, date) => {
     }
 
     // 4. Trend
-    defaultData.trend = getNewTrendData(rawdata, defaultData.daily[0].movieCode);
-    debugger;
+    defaultData.trend = getTrendData(rawdata, defaultData.daily[0].movieCode);
+    defaultData.title.trend = defaultData.trend.title;
    
     return defaultData;
 }
 
-const getNewTrendData = (rawdata, clicked) => {
-    let newTrendData = null,
+const getTrendData = (rawdata, clicked) => {
+    let trendData = null,
         categories = [],
         series = [],
         data = [],
         filtered = null,
         targetMovieCode = clicked.replace(/daily|cumulative/g, ""),
         dataType = clicked.replace(/[0-9]*/g, ""),
-        yesterday = getYesterday(-1),
+        today = getDate(0),
         lastIndex = 0,
-        value = '';
-
-    // clicked 처리
-    
+        value = '',
+        title = '';
+ 
     // rawdata에서 clicked영화만 추출
     filtered = rawdata.filter( rawdata => rawdata.movieCd === targetMovieCode );
 
     // filter를 오늘까지 자름
-    lastIndex = filtered.findIndex( filtered => filtered.date === yesterday );
-    value = dataType === "daily" ? "audiCnt" : "audiAcc"
+    lastIndex = filtered.findIndex( filtered => filtered.date === today );
+    value = dataType === "daily" ? "audiCnt" : "audiAcc";
+    title = dataType === "daily" ? `${filtered[0].movieNm} 일별 관객` : `${filtered[0].movieNm} 일별 누적관객`
+
     for(let i = 0; i <= lastIndex; i++) {
         categories.push(filtered[i].date);
         data.push(filtered[i][value]);
@@ -74,13 +75,13 @@ const getNewTrendData = (rawdata, clicked) => {
 
     // trend data구조에 맞게 처리
     series.push({ name: filtered[0].movieNm, data });
-    newTrendData = { categories, series };
+    trendData = { categories, series, title };
 
     // return trend data
-    return newTrendData;
+    return trendData;
 }
 
-const getYesterday = (i) => {
+const getDate = (i) => {
     let date = new Date();
     date.setDate(date.getDate() + i);
 
@@ -100,4 +101,4 @@ const getYesterday = (i) => {
 }
 
 export default getDefaultData;
-export { getNewTrendData, getYesterday };
+export { getTrendData, getDate };
