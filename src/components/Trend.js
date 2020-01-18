@@ -8,7 +8,8 @@ const Trend = (props) => {
 
     const options = {
         chart: {
-            type: 'spline'
+            type: 'line',
+            height: 241,
         },
 
         title: {
@@ -24,10 +25,7 @@ const Trend = (props) => {
         },
 
         legend: {
-            align: 'right',
-            layout: 'vertical',
-            verticalAlign: 'top'
-
+            enabled: false
         },
 
         series: series

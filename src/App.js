@@ -7,10 +7,12 @@ import Dashboard from './components/Dashboard';
 class App extends Component {
     render() {
         return (
-            <Container>
-                <TopNav />
-                <Dashboard />
-            </Container>
+            <>  
+                <Container>
+                    <TopNav />
+                    <Dashboard />
+                </Container>
+            </>
         )
     }
 }

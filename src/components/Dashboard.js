@@ -55,7 +55,6 @@ class Dashboard extends Component {
     }
 
     handleMovienameClick(event) {
-        //console.log('movie clicked', event.target.getAttribute('data-title'));
         // 1. 데이터 재처리
         let clicked = event.target.getAttribute('data-title'),
             trend = getNewTrendData(this.state.rawdata, clicked);

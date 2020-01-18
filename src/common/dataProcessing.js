@@ -4,7 +4,7 @@ const getDefaultData = (data, date) => {
         daily: [],
         cumulative: [],
         theaters: [],
-        trend: { series: null, categories: null },
+        trend: null,
         rawdata: data.data.data,
     }
 
@@ -25,6 +25,7 @@ const getDefaultData = (data, date) => {
         movieName.push(tempObject);
         targetMovies.push(targetData[i].movieNm);
     }
+
     // 2. cumulative
     targetData.sort((a, b) => b.audiAcc - a.audiAcc);
     for ( let i = 0; i < 5; i++ ) {
@@ -35,54 +36,14 @@ const getDefaultData = (data, date) => {
     // 3. theaters
     targetData.sort((a, b) => b.scrnCnt - a.scrnCnt);
     for( let i = 0; i < 5; i++ ) {
-        //let theaters = { name: targetData[i].movieNm, y: targetData[i].scrnCnt };
         let theaters = [ targetData[i].movieNm, targetData[i].scrnCnt ];
         defaultData['theaters'].push(theaters);
     }
 
     // 4. Trend
-    for(let i = -1; i > -8; i--) {
-        let date = getYesterday(i);
-        dateArray.push(date);
-    }
-
-    
-    let myData = [];
-    dateArray.forEach(targetDate => {
-        myData.push(rawdata.filter( data => data.date === targetDate));
-    });
-
-    let myArr = [].concat( ...myData );
-    
-    let tempArray = [];
-    targetMovies.forEach(movie => {
-        let filtered = myArr.filter(data => data.movieNm === movie),
-            tempObj = { name: movie, data: null },
-            tempArr = [];
-            
-        for(let i = 6; i >= 0; i--) {
-            let targetDate = dateArray[i],
-                tempElement = filtered.find( data => data.date === targetDate ),
-                tempValue = null;
-
-            if( filtered[i] && filtered[i].date === targetDate) {
-                tempValue = filtered[i].audiCnt;
-
-            } else if (tempElement) {
-                tempValue = tempElement.audiCnt;
-            } 
-            tempArr.push(tempValue);
-        }
-
-        tempObj.data = tempArr;
-        tempArray.push(tempObj);
-    });
-    dateArray.sort();
-    
-    defaultData['trend']['series'] = tempArray;
-    defaultData['trend']['categories'] = dateArray;
-
-
+    defaultData.trend = getNewTrendData(rawdata, defaultData.daily[0].movieCode);
+    debugger;
+   
     return defaultData;
 }
 

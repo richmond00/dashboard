@@ -1,20 +1,30 @@
 import React from 'react';
-import Navbar from 'react-bootstrap/Navbar';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
+import { Navbar, Form, Button, FormControl, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
 
 const TopNav = () => {
-
     return (
-        <Navbar className="bg-dark">
-            <Form inline>
-                <FormControl type="search" placeholder="Search" className="mr-sm-2" />
-                <Button type="submit">Submit</Button>
+        <Navbar expand="lg" bg="light" variant="light" className="justify-content-between">
+            <Navbar.Brand className="ml-5">Navbar Text by Bootstrap</Navbar.Brand>
+            
+            <Form inline className="">
+                <InputGroup>
+                    <DropdownButton
+                        as={InputGroup.Prepend}
+                        variant="outline-secondary"
+                        title="Dropdown"
+                        id="input-group-dropdown-1"
+                    >
+                        <Dropdown.Item>Action1</Dropdown.Item>
+                        <Dropdown.Item>Action2</Dropdown.Item>
+                    </DropdownButton>
+                    <FormControl type="text" placeholder="Search" className="mr-sm-2 " />
+                    <Button variant="outline-primary">Search</Button>
+                </InputGroup>
             </Form>
+            <Navbar.Text>
+            </Navbar.Text>
         </Navbar>
     )
-    
 }
 
 export default TopNav;
