@@ -66,11 +66,19 @@ const getTrendData = (rawdata, clicked) => {
     // filter를 오늘까지 자름
     lastIndex = filtered.findIndex( filtered => filtered.date === today );
     value = dataType === "daily" ? "audiCnt" : "audiAcc";
-    title = dataType === "daily" ? `${filtered[0].movieNm} 일별 관객` : `${filtered[0].movieNm} 일별 누적관객`
+    title = dataType === "daily" ? `${filtered[0].movieNm} 일별 관객수` : `${filtered[0].movieNm} 일별 누적관객수`
 
     for(let i = 0; i <= lastIndex; i++) {
-        categories.push(filtered[i].date);
-        data.push(filtered[i][value]);
+        //let date = filtered[i].date.replace(/^\d{4}/, ''),
+        //    formmattedDate = `${date.substr(0, 2)}.${date.substr(2, 3)}.`;
+        let formattedDate = getTrendDate(filtered[i].date),
+            seriesData = { y: filtered[i][value], id: 'open' + i };
+
+        //debugger;
+        //filtered[0].openDt.replace(/-/g, '') opendate
+
+        categories.push(formattedDate); // x축 날짜 데이터 삽입
+        data.push(seriesData);
     }
 
     // trend data구조에 맞게 처리
@@ -79,6 +87,26 @@ const getTrendData = (rawdata, clicked) => {
 
     // return trend data
     return trendData;
+}
+
+const getTrendDate = (date) => {
+    // 1. date포맷 변경: "20190101" -> "2019-01-01" 
+    let year = date.substr(0, 4),
+        month = date.substr(4, 2),
+        day = date.substr(6, 5),
+        formattedDate = `${year}-${month}-${day}`;
+    
+    // 2. Date 객체 생성
+    let dateObject = new Date(formattedDate);
+
+    // 3. getDay로 요일 생성
+    let weekday = dateObject.getDay();
+    let weekdayArray = ["일", "월", "화", "수", "목", "금", "토"];
+
+    // 4. 요일 + 달.일 형식으로 변경
+    let result = `${weekdayArray[weekday]}<br />${month}.${day}.`;
+
+    return result;
 }
 
 const getDate = (i) => {

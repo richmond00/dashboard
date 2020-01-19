@@ -20,8 +20,20 @@ const Trend = (props) => {
             enabled: false
         },
 
+        annotations: [{
+            labels: [{ 
+                point: 'open1',
+                text: 'test'
+            }]
+        }],
+
         xAxis: {
             categories: categories
+        },
+
+        yAxis: {
+            y: 0
+
         },
 
         legend: {
