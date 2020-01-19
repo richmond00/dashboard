@@ -1,11 +1,19 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+require('highcharts/modules/annotations')(Highcharts);
 
 const Trend = (props) => {
     const series = props.data ? props.data.series : null,
           categories = props.data ? props.data.categories : null;
-
+    console.log('series', series);
+    console.log('categories', categories)
+    Highcharts.setOptions({
+        lang: {
+            thousandsSep: ','
+        }
+    });
+          
     const options = {
         chart: {
             type: 'line',
@@ -20,27 +28,42 @@ const Trend = (props) => {
             enabled: false
         },
 
-        annotations: [{
-            labels: [{ 
-                point: 'open1',
-                text: 'test'
-            }]
-        }],
-
         xAxis: {
             categories: categories
         },
 
         yAxis: {
-            y: 0
+            title: undefined,
+            min: 0,
+            // labels: {
+            //     formatter: function() {
+            //         let value = this.value;
 
+            //         if( value >= 0 && value <= 10000) {
+                        
+
+            //         } else if (value >= 100000 && value <= 1000000) {
+
+            //         }
+
+
+            //         return value;
+            //     }
+            // }
         },
 
         legend: {
             enabled: false
         },
 
-        series: series
+        series: series,
+
+        // annotations: [{
+        //     labels: [{ 
+        //         point: 'annotation',
+        //         text: '개봉일'
+        //     }]
+        // }],
     };
 
     return (

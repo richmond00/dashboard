@@ -45,7 +45,6 @@ const Theaters = (props) => {
         series: [{
             data: pieChartData,
             showInLegend: true,
-
         }]
     };
 

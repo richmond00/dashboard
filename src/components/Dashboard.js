@@ -57,8 +57,8 @@ class Dashboard extends Component {
         // 1. 데이터 재처리
         let clicked = event.target.getAttribute('data-title'),
             trend = getTrendData(this.state.rawdata, clicked),
-            title = { ...this.state.title, trend: trend.title }
-
+            title = { ...this.state.title, trend: trend.title };
+ 
         //2. 재처리된 데이터 setState로 변경
         this.setState({
             ...this.state, ...{
@@ -72,9 +72,8 @@ class Dashboard extends Component {
     
     render() {
         const { isLoading, title, daily, cumulative, theaters, trend } = this.state;
-        console.log('isLoading', isLoading);
-
-        return (
+             
+        const dashboard = (
             <>
             <Row className="mt-3 bg-light">
                 <Col xs={12} sm={3} md={3}>
@@ -110,7 +109,15 @@ class Dashboard extends Component {
                 </Col>
             </Row>
             </>
-        )
+        );
+
+        const loadingMessage =  <p className="mt-3">데이터 로드 중입니다...</p>;
+
+        return (
+            <>
+                { isLoading ? loadingMessage : dashboard }
+            </>
+        );
     }
 }
 

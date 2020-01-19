@@ -58,7 +58,8 @@ const getTrendData = (rawdata, clicked) => {
         today = getDate(0),
         lastIndex = 0,
         value = '',
-        title = '';
+        title = '',
+        releaseDate = '';
  
     // rawdata에서 clicked영화만 추출
     filtered = rawdata.filter( rawdata => rawdata.movieCd === targetMovieCode );
@@ -67,15 +68,11 @@ const getTrendData = (rawdata, clicked) => {
     lastIndex = filtered.findIndex( filtered => filtered.date === today );
     value = dataType === "daily" ? "audiCnt" : "audiAcc";
     title = dataType === "daily" ? `${filtered[0].movieNm} 일별 관객수` : `${filtered[0].movieNm} 일별 누적관객수`
+    releaseDate = filtered[0].openDt.replace(/-/g, '');
 
     for(let i = 0; i <= lastIndex; i++) {
-        //let date = filtered[i].date.replace(/^\d{4}/, ''),
-        //    formmattedDate = `${date.substr(0, 2)}.${date.substr(2, 3)}.`;
         let formattedDate = getTrendDate(filtered[i].date),
-            seriesData = { y: filtered[i][value], id: 'open' + i };
-
-        //debugger;
-        //filtered[0].openDt.replace(/-/g, '') opendate
+            seriesData = ( filtered[i].date !== releaseDate ) ? filtered[i][value] :  { y: filtered[i][value], id: 'annotation' };
 
         categories.push(formattedDate); // x축 날짜 데이터 삽입
         data.push(seriesData);
