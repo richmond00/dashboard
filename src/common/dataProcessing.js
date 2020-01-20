@@ -72,7 +72,8 @@ const getTrendData = (rawdata, clicked) => {
 
     for(let i = 0; i <= lastIndex; i++) {
         let formattedDate = getTrendDate(filtered[i].date),
-            seriesData = ( filtered[i].date !== releaseDate ) ? filtered[i][value] :  { y: filtered[i][value], id: 'annotation' };
+            //seriesData = ( filtered[i].date !== releaseDate ) ? {y: filtered[i][value] } :  { y: filtered[i][value], id: 'annotation' };
+            seriesData = filtered[i][value];
 
         categories.push(formattedDate); // x축 날짜 데이터 삽입
         data.push(seriesData);
@@ -125,5 +126,10 @@ const getDate = (i) => {
     return [year, month, day].join('');
 }
 
+
+const getSearchResultData = (movieName) => {
+    console.log('dataprocessing', movieName);
+}
+
 export default getDefaultData;
-export { getTrendData, getDate };
+export { getTrendData, getDate, getSearchResultData };

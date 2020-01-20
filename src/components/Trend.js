@@ -6,8 +6,7 @@ require('highcharts/modules/annotations')(Highcharts);
 const Trend = (props) => {
     const series = props.data ? props.data.series : null,
           categories = props.data ? props.data.categories : null;
-    console.log('series', series);
-    console.log('categories', categories)
+    
     Highcharts.setOptions({
         lang: {
             thousandsSep: ','

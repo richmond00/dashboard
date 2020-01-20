@@ -66,8 +66,7 @@ class Dashboard extends Component {
                 trend,
                 title
             }
-        });     
-
+        });
     }
     
     render() {
