@@ -24,21 +24,25 @@ const Theaters = (props) => {
                 innerSize: '60%',
                 dataLabels: {
                     enabled: true,
-                    format: '{y}관',
+                    format: '{key}',
+                    // formatter: function() {
+                    //     debugger;
+                    // },
                     distance: -20,
                 }
             }
         },
 
         legend: {
+            enabled: false,
             align: 'right',
-            layout: 'vertical',
-            verticalAlign: 'top',
+            layout: 'horizontal',
+            verticalAlign: 'bottom',
         },
 
         tooltip: {
             pointFormatter: function() {
-                return `${this.percentage.toFixed(2)}%`
+                return `${this.percentage.toFixed(2)}% <br /> ${this.y}관`
             }
         },
 
@@ -47,7 +51,11 @@ const Theaters = (props) => {
             showInLegend: true,
         }]
     };
-
+// #EF65A2,
+// #64A4F5
+// #A377FE
+// #FF7E5A
+// #65CFC2
     return (
         <div className="bg-white">
             <div className="mt-3 border-bottom">

@@ -17,7 +17,7 @@ const getDefaultData = (data, date) => {
    
     // 1. daily,
     for( let i = 0; i < 5; i++ ) {
-        let daily = { movieCode: `daily${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiCnt },
+        let daily = { movieCode: `daily${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiCnt.toLocaleString() },
             tempObject = { name: targetData[i].movieNm, data: [] };
         
         defaultData['daily'].push(daily);
@@ -29,14 +29,14 @@ const getDefaultData = (data, date) => {
     // 2. cumulative
     targetData.sort((a, b) => b.audiAcc - a.audiAcc);
     for ( let i = 0; i < 5; i++ ) {
-        let cumulative = { movieCode: `cumulative${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiAcc };
+        let cumulative = { movieCode: `cumulative${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiAcc.toLocaleString() };
         defaultData['cumulative'].push(cumulative);
     }
 
     // 3. theaters
     targetData.sort((a, b) => b.scrnCnt - a.scrnCnt);
     for( let i = 0; i < 5; i++ ) {
-        let theaters = [ targetData[i].movieNm, targetData[i].scrnCnt ];
+        let theaters = { name: targetData[i].movieNm, y: targetData[i].scrnCnt };
         defaultData['theaters'].push(theaters);
     }
 
@@ -55,7 +55,7 @@ const getTrendData = (rawdata, clicked) => {
         filtered = null,
         targetMovieCode = clicked.replace(/daily|cumulative/g, ""),
         dataType = clicked.replace(/[0-9]*/g, ""),
-        today = getDate(0),
+        today = getDate(new Date()),
         lastIndex = 0,
         value = '',
         title = '',
@@ -102,18 +102,18 @@ const getTrendDate = (date) => {
     let weekdayArray = ["일", "월", "화", "수", "목", "금", "토"];
 
     // 4. 요일 + 달.일 형식으로 변경
-    let result = `${weekdayArray[weekday]}<br />${month}.${day}.`;
+    let result = `${month}.${day} <br />${weekdayArray[weekday]}`;
 
     return result;
 }
 
-const getDate = (i) => {
-    let date = new Date();
-    date.setDate(date.getDate() + i);
-
-    let month = '' + (date.getMonth() + 1),
+const getDate = (date) => {
+    //let date = new Date();
+    //date.setDate(date.getDate() + i);
+    let isNow = (date.getFullYear() === 2020),
+        month = '' + (date.getMonth() + 1),
         day = '' + date.getDate(),
-        year = date.getFullYear() - 1;
+        year = isNow ? date.getFullYear() - 1 : date.getFullYear;
     
     if (month.length < 2) {
         month = '0' + month;

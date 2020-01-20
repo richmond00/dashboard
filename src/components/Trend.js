@@ -15,7 +15,7 @@ const Trend = (props) => {
           
     const options = {
         chart: {
-            type: 'line',
+            type: 'area',
             height: 241,
         },
 
@@ -49,6 +49,19 @@ const Trend = (props) => {
             //         return value;
             //     }
             // }
+        },
+
+        plotOptions: {
+            series: {
+                color: '#5591f4',
+                marker: {
+                    fillColor: '#FFFFFF',
+                    lineWidth: 2,
+                    lineColor: null
+                },
+                fillOpacity: 0.1
+            }
+
         },
 
         legend: {

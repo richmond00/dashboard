@@ -3,16 +3,19 @@ import './App.css';
 import Container from 'react-bootstrap/Container';
 import TopNav from './components/TopNav';
 import Dashboard from './components/Dashboard';
-import { getSearchResultData } from './common/dataProcessing';
+import getDefaultData from './common/dataProcessing';
+import axios from 'axios';
 
 class App extends Component {
     constructor() {
         super();
         this.state = {
+            rawdata: null,
             searchValue: '',
-            searchDate: new Date(),
-            dropdownTitle: '영화명'
+            searchDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
+            dropdownTitle: '영화명',
         };
+
         this.handleDropdownSelect = this.handleDropdownSelect.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleDatePickerChange = this.handleDatePickerChange.bind(this);
@@ -26,14 +29,15 @@ class App extends Component {
             ...this.state, ...{
                 dropdownTitle
             }
-        })
-        
+        });
     }
 
     handleSearchChange(event) {
         this.setState({
-            searchValue: event.target.value
-        })
+           ...this.state, ...{ 
+               searchValue: event.target.value
+           }
+        });
     }
 
     handleDatePickerChange(date) {
@@ -46,7 +50,25 @@ class App extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        getSearchResultData(this.state.searchValue);
+        //debugger;
+        //getSearchResultData(this.state.searchValue);
+        // 1. 영화명인 경우
+        let defaultData = getDefaultData(this.state.rawdata, this.state.searchDate);
+        debugger;
+
+        // 2. 날짜인 경우
+    }
+
+    componentDidMount() {
+        axios.get('../2019.json')
+          .then( response => {
+              this.setState({
+                  ...this.state, ...{
+                      rawdata: response
+                  }
+              })
+          })
+          .catch( error => console.log('error: ', error));
     }
 
     render() {

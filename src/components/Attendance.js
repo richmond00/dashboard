@@ -18,7 +18,7 @@ const Attendance = (props) => {
                                       data-title={data.movieCode}
                                       onClick={props.click}
                                     >{data.movieName}</td>
-                                    <td className="text-right">{data.value}</td>
+                                    <td className="text-right">{data.value}명</td>
                                 </tr>
                             )
                         })}

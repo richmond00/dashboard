@@ -26,7 +26,7 @@ class Dashboard extends Component {
     async componentDidMount() {
         let defaultData = await axios.get('../2019.json')
                                      .then( response => {
-                                         let today =  getDate(0);
+                                         let today =  getDate(new Date());
                                          return getDefaultData(response, today);
                                       })
                                      .catch( error => {
@@ -75,7 +75,7 @@ class Dashboard extends Component {
         const dashboard = (
             <>
             <Row className="mt-3 bg-light">
-                <Col xs={12} sm={3} md={3}>
+                <Col xs={12} sm={3} md={4}>
                     <Attendance
                       title={title && title.daily}
                       data={daily}
@@ -83,7 +83,7 @@ class Dashboard extends Component {
                     />
                 </Col>
 
-                <Col xs={12} sm={3} md={3}>
+                <Col xs={12} sm={3} md={4}>
                     <Attendance
                       title={title && title.cumulative}
                       data={cumulative}
@@ -91,7 +91,7 @@ class Dashboard extends Component {
                     />
                 </Col>
 
-                <Col xs={12} sm={6} md={6}>
+                <Col xs={12} sm={6} md={4}>
                     <Theaters
                       title={title && title.theaters}
                       data={theaters}

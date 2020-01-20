@@ -8,19 +8,22 @@ registerLocale('ko', ko)
 const TopNav = (props) => {
     const movieInput = (
         <FormControl
-                      type="search"
-                      placeholder="영화제목을 입력하세요"
-                      className="mr-sm-2"
-                      onChange={props.searchChange}
-                    />
+          name="search"
+          type="input"
+          placeholder="영화제목을 입력하세요"
+          className="mr-sm-2"
+          onChange={props.searchChange}
+        />
     );
 
     const dateInput = (
         <DatePicker
-              selected={props.searchDate}
-              onChange={props.datePickerChange}
-              dateFormat="yyyy-MM-dd"
-              locale='ko'
+          name="date"
+          selected={props.searchDate}
+          onChange={props.datePickerChange}
+          dateFormat="yyyy-MM-dd"
+          className="mr-sm-2 form-control"
+          locale='ko'
         />
     );
     
@@ -44,8 +47,6 @@ const TopNav = (props) => {
                     <Button type="submit" variant="primary">검색</Button>
                 </InputGroup>
             </Form>
-
-            
 
             <Navbar.Text></Navbar.Text>
         </Navbar>
