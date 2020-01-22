@@ -8,20 +8,7 @@ import Trend from './Trend';
 //import getDefaultData, { getTrendData, getDate } from '../common/dataProcessing';
 
 class Dashboard extends Component {
-    // constructor() {
-    //     super();
-    //     this.state = {
-    //         isLoading: true,
-    //         title: null,
-    //         daily: null,
-    //         cumulative: null,
-    //         theaters: null,
-    //         trend: null,
-    //         rawdata : null,
-    //         error: "",
-    //     };  
-    // }
-    
+
     render() {
         const { title, daily, cumulative, theaters, trend } = this.props.data;
         const dashboard = (
@@ -62,7 +49,7 @@ class Dashboard extends Component {
             </>
         );
 
-        const loadingMessage =  <p className="mt-3">데이터 로드 중입니다...</p>;
+        //const loadingMessage =  <p className="mt-3">데이터 로드 중입니다...</p>;
 
         return (
             <>

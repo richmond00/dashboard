@@ -12,9 +12,10 @@ class App extends Component {
         this.state = {
             searchValue: '',
             searchDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
+            currentDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
             dropdownTitle: '영화명',
-            
             isLoading: true,
+            isSearch: false,
             title: null,
             daily: null,
             cumulative: null,
@@ -62,20 +63,29 @@ class App extends Component {
         //debugger;
         //getSearchResultData(this.state.searchValue);
         // 1. 영화명인 경우
+       
         let defaultData = getDefaultData(this.state.rawdata, getDate(this.state.searchDate));
-
+        const { title, daily, cumulative, theaters, trend } = defaultData;
         // 2. 날짜인 경우
         this.setState({
             ...this.state, ...{
-                defaultData
+                isSearch: true,
+                currentDate: this.state.searchDate,
+                title,
+                daily,
+                cumulative,
+                theaters,
+                trend
             }
         });
     }
 
     handleMovienameClick(event) {
         // 1. 데이터 재처리
+        debugger;
         let clicked = event.target.getAttribute('data-title'),
-            trend = getTrendData(this.state.rawdata, clicked),
+            date = this.state.isSearch ? getDate(this.state.searchDate) : getDate(this.state.currentDate),
+            trend = getTrendData(this.state.rawdata, clicked, date),
             title = { ...this.state.title, trend: trend.title };
  
         //2. 재처리된 데이터 setState로 변경
@@ -92,7 +102,7 @@ class App extends Component {
         axios.get('../2019.json')
              .then( response => {
                 let today = getDate(new Date()),
-                    defaultData = getDefaultData(response, today);
+                    defaultData = getDefaultData(response.data.data, today);
 
                 const title = defaultData.title,
                       daily = defaultData.daily,

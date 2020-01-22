@@ -6,13 +6,13 @@ const getDefaultData = (data, date) => {
         cumulative: [],
         theaters: [],
         trend: null,
-        rawdata: data.data.data,
+        rawdata: data,
     }
 
     let movieName = [],
         targetMovies = [];
 
-    let rawdata = data.data.data,
+    let rawdata = data,
         targetData = rawdata.filter( data => data.date === date );
    
     // 1. daily,
@@ -41,13 +41,14 @@ const getDefaultData = (data, date) => {
     }
 
     // 4. Trend
-    defaultData.trend = getTrendData(rawdata, defaultData.daily[0].movieCode);
+    debugger;
+    defaultData.trend = getTrendData(rawdata, defaultData.daily[0].movieCode, date);
     defaultData.title.trend = defaultData.trend.title;
    
     return defaultData;
 }
 
-const getTrendData = (rawdata, clicked) => {
+const getTrendData = (rawdata, clicked, date) => {
     let trendData = null,
         categories = [],
         series = [],
@@ -55,7 +56,6 @@ const getTrendData = (rawdata, clicked) => {
         filtered = null,
         targetMovieCode = clicked.replace(/daily|cumulative/g, ""),
         dataType = clicked.replace(/[0-9]*/g, ""),
-        today = getDate(new Date()),
         lastIndex = 0,
         value = '',
         title = '',
@@ -65,7 +65,7 @@ const getTrendData = (rawdata, clicked) => {
     filtered = rawdata.filter( rawdata => rawdata.movieCd === targetMovieCode );
 
     // filter를 오늘까지 자름
-    lastIndex = filtered.findIndex( filtered => filtered.date === today );
+    lastIndex = filtered.findIndex( filtered => filtered.date === date );
     value = dataType === "daily" ? "audiCnt" : "audiAcc";
     title = dataType === "daily" ? `${filtered[0].movieNm} 일별 관객수` : `${filtered[0].movieNm} 일별 누적관객수`
     releaseDate = filtered[0].openDt.replace(/-/g, '');
