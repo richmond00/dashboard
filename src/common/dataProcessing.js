@@ -102,7 +102,7 @@ const getTrendDate = (date) => {
     let weekdayArray = ["일", "월", "화", "수", "목", "금", "토"];
 
     // 4. 요일 + 달.일 형식으로 변경
-    let result = `${month}.${day} <br />${weekdayArray[weekday]}`;
+    let result = `${month}.${day} <br /> ${weekdayArray[weekday]}`;
 
     return result;
 }
@@ -113,7 +113,7 @@ const getDate = (date) => {
     let isNow = (date.getFullYear() === 2020),
         month = '' + (date.getMonth() + 1),
         day = '' + date.getDate(),
-        year = isNow ? date.getFullYear() - 1 : date.getFullYear;
+        year = isNow ? date.getFullYear() - 1 : date.getFullYear();
     
     if (month.length < 2) {
         month = '0' + month;
