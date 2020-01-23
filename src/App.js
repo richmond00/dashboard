@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import TopNav from './components/TopNav';
 import Dashboard from './components/Dashboard';
 import DashboardByTitle from './components/DashboardByTitle';
-import getDefaultData, { getDate, getTrendData } from './common/dataProcessing';
+import getDefaultData, { getDate, getTrendData, getTitleData } from './common/dataProcessing';
 import axios from 'axios';
 
 class App extends Component {
@@ -12,6 +12,7 @@ class App extends Component {
         super();
         this.state = {
             searchValue: '',
+            titleData : null,
             searchDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
             currentDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
             dropdownTitle: '영화명',
@@ -67,30 +68,34 @@ class App extends Component {
         let data = null;
         
         if( isTitle ) {
-            data = getTitleData(this.state.rawdata, getDate(this.state.currentDate));
+            data = getTitleData(this.state.rawdata, getDate(this.state.currentDate), this.state.searchValue);
+            this.setState({
+                ...this.state, ...{
+                    isTitle: true,
+                    titleData: data
+                }
+            });
         } else {
             data = getDefaultData(this.state.rawdata, getDate(this.state.searchDate));
-        }
-       
-        const { title, daily, cumulative, theaters, trend } = data;
+            const { title, daily, cumulative, theaters, trend } = data;
         
-        this.setState({
-            ...this.state, ...{
-                isSearch: true,
-                currentDate: this.state.searchDate,
-                isTitle,
-                title,
-                daily,
-                cumulative,
-                theaters,
-                trend
-            }
-        });
+            this.setState({
+                ...this.state, ...{
+                    isSearch: true,
+                    currentDate: this.state.searchDate,
+                    isTitle,
+                    title,
+                    daily,
+                    cumulative,
+                    theaters,
+                    trend
+                }
+            });
+        }
     }
 
     handleMovienameClick(event) {
         // 1. 데이터 재처리
-        debugger;
         let clicked = event.target.getAttribute('data-title'),
             date = this.state.isSearch ? getDate(this.state.searchDate) : getDate(this.state.currentDate),
             trend = getTrendData(this.state.rawdata, clicked, date),
@@ -139,7 +144,7 @@ class App extends Component {
         const isTitle = this.state.isTitle,
               dashboardData = { ...this.state },
               dashboard = <Dashboard data={dashboardData} change={this.handleMovienameClick} />,
-              dashboardByTitle = <DashboardByTitle />,
+              dashboardByTitle = <DashboardByTitle data={this.state.titleData} />,
               loadingMessage =  <p className="mt-3">데이터 로드 중입니다...</p>;
 
         return (

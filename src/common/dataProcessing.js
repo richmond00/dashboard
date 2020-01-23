@@ -1,3 +1,15 @@
+const getTitleData = (rawdata, date, movieName) => {
+    let titleData = [];
+    let filtered = rawdata.filter( data => data.movieNm === movieName );
+    
+    filtered.forEach( data => {
+        const { rank, movieNm, movieCd, openDt, salesAmt, salesAcc, audiCnt, audiAcc, scrnCnt, showcnt, date } = data;
+        const tempObj = { rank, movieNm, movieCd, openDt, salesAmt, salesAcc, audiCnt, audiAcc, scrnCnt, showcnt, date };
+        titleData.push(tempObj);
+    });
+
+    return titleData;
+}
 
 const getDefaultData = (data, date) => {
     let defaultData = {
@@ -131,4 +143,4 @@ const getSearchResultData = (movieName) => {
 }
 
 export default getDefaultData;
-export { getTrendData, getDate, getSearchResultData };
+export { getTrendData, getDate, getSearchResultData, getTitleData };
