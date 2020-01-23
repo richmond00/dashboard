@@ -41,7 +41,6 @@ const getDefaultData = (data, date) => {
     }
 
     // 4. Trend
-    debugger;
     defaultData.trend = getTrendData(rawdata, defaultData.daily[0].movieCode, date);
     defaultData.title.trend = defaultData.trend.title;
    

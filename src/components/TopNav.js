@@ -13,6 +13,7 @@ const TopNav = (props) => {
           placeholder="영화제목을 입력하세요"
           className="mr-sm-2"
           onChange={props.searchChange}
+          required
         />
     );
 

@@ -3,6 +3,7 @@ import './App.css';
 import Container from 'react-bootstrap/Container';
 import TopNav from './components/TopNav';
 import Dashboard from './components/Dashboard';
+import DashboardByTitle from './components/DashboardByTitle';
 import getDefaultData, { getDate, getTrendData } from './common/dataProcessing';
 import axios from 'axios';
 
@@ -22,6 +23,7 @@ class App extends Component {
             theaters: null,
             trend: null,
             rawdata : null,
+            isTitle: false,
             error: "",
         };
 
@@ -60,17 +62,23 @@ class App extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        //debugger;
+        const isTitle = this.state.dropdownTitle === "영화명";
         //getSearchResultData(this.state.searchValue);
-        // 1. 영화명인 경우
+        let data = null;
+        
+        if( isTitle ) {
+            data = getTitleData(this.state.rawdata, getDate(this.state.currentDate));
+        } else {
+            data = getDefaultData(this.state.rawdata, getDate(this.state.searchDate));
+        }
        
-        let defaultData = getDefaultData(this.state.rawdata, getDate(this.state.searchDate));
-        const { title, daily, cumulative, theaters, trend } = defaultData;
-        // 2. 날짜인 경우
+        const { title, daily, cumulative, theaters, trend } = data;
+        
         this.setState({
             ...this.state, ...{
                 isSearch: true,
                 currentDate: this.state.searchDate,
+                isTitle,
                 title,
                 daily,
                 cumulative,
@@ -128,8 +136,10 @@ class App extends Component {
 
     render() {
         //const { isLoading, title, daily, cumulative, theaters, trend } = this.state;
-        const dashboardData = { ...this.state };
-        const dashboard = <Dashboard data={dashboardData} change={this.handleMovienameClick} />,
+        const isTitle = this.state.isTitle,
+              dashboardData = { ...this.state },
+              dashboard = <Dashboard data={dashboardData} change={this.handleMovienameClick} />,
+              dashboardByTitle = <DashboardByTitle />,
               loadingMessage =  <p className="mt-3">데이터 로드 중입니다...</p>;
 
         return (
@@ -143,8 +153,9 @@ class App extends Component {
                       datePickerChange={this.handleDatePickerChange}
                       submit={this.handleSubmit}
                     />
-                    { dashboardData.isLoading ? loadingMessage : dashboard }
                     
+                    {/* { dashboardData.isLoading ? loadingMessage : dashboard } */}
+                    { isTitle ? dashboardByTitle : dashboard }
                 </Container>
             </>
         )
