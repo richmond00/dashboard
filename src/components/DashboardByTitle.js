@@ -2,8 +2,7 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';
 
 const DashboardByTitle = (props) => {
-    console.log(props.data);
-    return (
+    const dashboard = (
         <div className="bg-white">
             <div className="mt-3 border-bottom">
                 <h5>{props.data && props.data[0].movieNm}</h5>
@@ -41,6 +40,14 @@ const DashboardByTitle = (props) => {
                 </Table>
             </div>
         </div>
+    );
+
+    const errorMessage = <p>데이터가 없습니다</p>
+
+    return (
+        <>
+        { props.data ? dashboard : errorMessage }
+        </>
     );
 }
 

@@ -65,9 +65,6 @@ class App extends Component {
         event.preventDefault();
         const isTitle = this.state.dropdownTitle === "영화명";
         let data = null;
-        this.setState({
-            ...this.state, ...{ isLoading: true}
-        });
         
         if( isTitle ) {
             data = getTitleData(this.state.rawdata, getDate(this.state.currentDate), this.state.searchValue);
@@ -161,7 +158,7 @@ class App extends Component {
                       submit={this.handleSubmit}
                     />
                     
-                    { dashboardData.isLoading ? loadingMessage : isTitle ? dashboardByTitle : dashboard  }
+                    { dashboardData.isLoading ? loadingMessage : (isTitle ? dashboardByTitle : dashboard) }
                     {/* { isTitle ? dashboardByTitle : dashboard } */}
                     
                 </Container>

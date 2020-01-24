@@ -1,6 +1,9 @@
 const getTitleData = (rawdata, date, movieName) => {
-    let titleData = [];
-    let filtered = rawdata.filter( data => data.movieNm === movieName );
+    let titleData = [],
+        filtered = rawdata.filter( data => data.movieNm === movieName );
+    if ( filtered.length === 0 ) {
+        return null;
+    }
     
     filtered.forEach( data => {
         const { rank, movieNm, movieCd, openDt, salesAmt, salesAcc, audiCnt, audiAcc, scrnCnt, showcnt, date } = data;
