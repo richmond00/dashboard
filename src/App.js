@@ -25,7 +25,7 @@ class App extends Component {
             trend: null,
             rawdata : null,
             isTitle: false,
-            error: "",
+            loadingMessage: <p className="mt-3">데이터 로드 중입니다...</p>
         };
 
         this.handleMovienameClick = this.handleMovienameClick.bind(this);
@@ -113,6 +113,7 @@ class App extends Component {
     componentDidMount() {
         axios.get('../2019.json')
              .then( response => {
+                debugger;
                 let today = getDate(new Date()),
                     defaultData = getDefaultData(response.data.data, today);
 
@@ -135,7 +136,15 @@ class App extends Component {
                     }
                 });
           })
-          .catch( error => console.log('error: ', error));
+          .catch( error => {
+              console.log('error', error);
+              this.setState({
+                  ...this.state, ...{
+                      loadingMessage: <p>데이터 로드 중 에러가 발생하였습니다</p>
+                  }
+              })
+
+          });
     }
 
     render() {
@@ -143,8 +152,8 @@ class App extends Component {
         const isTitle = this.state.isTitle,
               dashboardData = { ...this.state },
               dashboard = <Dashboard data={dashboardData} change={this.handleMovienameClick} />,
-              dashboardByTitle = <DashboardByTitle data={this.state.titleData} />,
-              loadingMessage =  <p className="mt-3">데이터 로드 중입니다...</p>;
+              dashboardByTitle = <DashboardByTitle data={this.state.titleData} />;
+              //loadingMessage =  <p className="mt-3">데이터 로드 중입니다...</p>;
 
         return (
             <>  
@@ -158,7 +167,7 @@ class App extends Component {
                       submit={this.handleSubmit}
                     />
                     
-                    { dashboardData.isLoading ? loadingMessage : (isTitle ? dashboardByTitle : dashboard) }
+                    { dashboardData.isLoading ? dashboardData.loadingMessage : (isTitle ? dashboardByTitle : dashboard) }
                     {/* { isTitle ? dashboardByTitle : dashboard } */}
                     
                 </Container>
