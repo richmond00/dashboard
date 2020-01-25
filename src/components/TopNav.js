@@ -1,11 +1,12 @@
 import React from 'react';
-import { Navbar, Form, Button, FormControl, InputGroup, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Navbar, Form, Button, FormControl, InputGroup, DropdownButton, Dropdown, ToggleButton, ToggleButtonGroup } from 'react-bootstrap';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import ko from 'date-fns/locale/ko';
 registerLocale('ko', ko)
 
 const TopNav = (props) => {
+
     const movieInput = (
         <FormControl
           name="search"
@@ -32,7 +33,7 @@ const TopNav = (props) => {
         <Navbar expand="lg" bg="light" variant="light" className="justify-content-between">
             <Navbar.Brand className="ml-5">Navbar Text by Bootstrap</Navbar.Brand>
             
-            <Form inline className="" onSubmit={props.submit}>
+            <Form inline className="ml-n5" onSubmit={props.submit}>
                 <InputGroup>
                     <DropdownButton
                         as={InputGroup.Prepend}
@@ -49,7 +50,10 @@ const TopNav = (props) => {
                 </InputGroup>
             </Form>
 
-            <Navbar.Text></Navbar.Text>
+            <ToggleButtonGroup aria-label="Basic example" type="radio" name="options" defaultValue='attendance' onChange={props.buttonClick}>
+                <ToggleButton value='attendance' variant="outline-secondary">관객수</ToggleButton>
+                <ToggleButton value='income' variant="outline-secondary">매출액</ToggleButton>
+            </ToggleButtonGroup>
         </Navbar>
     )
 }

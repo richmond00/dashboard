@@ -12,6 +12,7 @@ class App extends Component {
         super();
         this.state = {
             searchValue: '',
+            buttonValue: null,
             titleData : null,
             searchDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
             currentDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
@@ -33,6 +34,7 @@ class App extends Component {
         this.handleSearchChange = this.handleSearchChange.bind(this);
         this.handleDatePickerChange = this.handleDatePickerChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleButtonClick = this.handleButtonClick.bind(this);
     }
 
     handleDropdownSelect(event) {
@@ -110,10 +112,19 @@ class App extends Component {
         });
     }
 
+    handleButtonClick(value) {
+        console.log('buttonclick', value);
+        this.setState({
+            ...this.state, ...{
+                buttonValue: value
+            }
+        })
+
+    }
+
     componentDidMount() {
         axios.get('../2019.json')
              .then( response => {
-                debugger;
                 let today = getDate(new Date()),
                     defaultData = getDefaultData(response.data.data, today);
 
@@ -165,6 +176,8 @@ class App extends Component {
                       searchChange={this.handleSearchChange}
                       datePickerChange={this.handleDatePickerChange}
                       submit={this.handleSubmit}
+                      buttonClick={this.handleButtonClick}
+                      buttonValue={this.state.buttonValue}
                     />
                     
                     { dashboardData.isLoading ? dashboardData.loadingMessage : (isTitle ? dashboardByTitle : dashboard) }
