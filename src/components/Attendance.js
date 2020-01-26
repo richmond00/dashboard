@@ -2,6 +2,7 @@ import React from 'react';
 import Table from 'react-bootstrap/Table';
 
 const Attendance = (props) => {
+    console.log('attdeance', props);
     return (
         <div className="bg-white">
             <div className="mt-3 border-bottom">
@@ -18,7 +19,7 @@ const Attendance = (props) => {
                                       data-title={data.movieCode}
                                       onClick={props.click}
                                     >{data.movieName}</td>
-                                    <td className="text-right">{data.value}명</td>
+                                    <td className="text-right">{data.value}</td>
                                 </tr>
                             )
                         })}

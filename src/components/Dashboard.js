@@ -8,8 +8,9 @@ import Trend from './Trend';
 //import getDefaultData, { getTrendData, getDate } from '../common/dataProcessing';
 
 class Dashboard extends Component {
-
+    
     render() {
+        console.log('Dashboard', this.props);
         const { title, daily, cumulative, theaters, trend } = this.props.data;
         const dashboard = (
             <>

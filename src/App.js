@@ -11,6 +11,7 @@ class App extends Component {
     constructor() {
         super();
         this.state = {
+            isAttendace: true,
             searchValue: '',
             buttonValue: null,
             titleData : null,
@@ -99,7 +100,7 @@ class App extends Component {
         // 1. 데이터 재처리
         let clicked = event.target.getAttribute('data-title'),
             date = this.state.isSearch ? getDate(this.state.searchDate) : getDate(this.state.currentDate),
-            trend = getTrendData(this.state.rawdata, clicked, date),
+            trend = getTrendData(this.state.rawdata, clicked, date, this.state.isAttendace),
             title = { ...this.state.title, trend: trend.title };
  
         //2. 재처리된 데이터 setState로 변경
@@ -113,13 +114,30 @@ class App extends Component {
     }
 
     handleButtonClick(value) {
-        console.log('buttonclick', value);
+        let isAttendace = ( value === 'attendance' ? true : false ),
+            today = getDate(new Date()),
+            defaultData = getDefaultData(this.state.rawdata, today, isAttendace);
+
+        const title = defaultData.title,
+                daily = defaultData.daily,
+                cumulative = defaultData.cumulative,
+                theaters  = defaultData.theaters,
+                trend = defaultData.trend,
+                rawdata = defaultData.rawdata;
+    
         this.setState({
             ...this.state, ...{
-                buttonValue: value
+                isLoading: false,
+                isAttendace,
+                buttonValue: value,
+                title,
+                daily,
+                cumulative,
+                theaters,
+                trend,
+                rawdata
             }
-        })
-
+        });
     }
 
     componentDidMount() {

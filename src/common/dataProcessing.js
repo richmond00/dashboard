@@ -14,9 +14,12 @@ const getTitleData = (rawdata, date, movieName) => {
     return titleData;
 }
 
-const getDefaultData = (data, date) => {
+const getDefaultData = (data, date, isAttendance = true) => {
+    const title4Attendance = { date, daily: "관객수", cumulative: "누적관객수", theaters: "상영관수", trend: "" },
+          title4Income = { date, daily: "수입", cumulative: "누적수입", theaters: "상영관수", trend: ""};
+
     let defaultData = {
-        title: { date, daily: "관객수", cumulative: "누적관객수", theaters: "상영관수", trend: "" },
+        title: isAttendance ? title4Attendance : title4Income,
         daily: [],
         cumulative: [],
         theaters: [],
@@ -25,14 +28,15 @@ const getDefaultData = (data, date) => {
     }
 
     let movieName = [],
-        targetMovies = [];
+        targetMovies = [],
+        rawdata = data,
+        targetData = rawdata.filter( data => data.date === date ),
+        dataKey = isAttendance ? 'audiCnt' : 'salesAmt',
+        unit = isAttendance ? '명' : '원';
 
-    let rawdata = data,
-        targetData = rawdata.filter( data => data.date === date );
-   
     // 1. daily,
     for( let i = 0; i < 5; i++ ) {
-        let daily = { movieCode: `daily${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiCnt.toLocaleString() },
+        let daily = { movieCode: `daily${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i][dataKey].toLocaleString() + unit },
             tempObject = { name: targetData[i].movieNm, data: [] };
         
         defaultData['daily'].push(daily);
@@ -40,11 +44,11 @@ const getDefaultData = (data, date) => {
         movieName.push(tempObject);
         targetMovies.push(targetData[i].movieNm);
     }
-
+    dataKey = isAttendance ? 'audiAcc' : 'salesAcc';
     // 2. cumulative
-    targetData.sort((a, b) => b.audiAcc - a.audiAcc);
+    targetData.sort((a, b) => b[dataKey] - a[dataKey]);
     for ( let i = 0; i < 5; i++ ) {
-        let cumulative = { movieCode: `cumulative${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i].audiAcc.toLocaleString() };
+        let cumulative = { movieCode: `cumulative${targetData[i].movieCd}`, movieName: targetData[i].movieNm, value: targetData[i][dataKey].toLocaleString() + unit };
         defaultData['cumulative'].push(cumulative);
     }
 
@@ -56,13 +60,13 @@ const getDefaultData = (data, date) => {
     }
 
     // 4. Trend
-    defaultData.trend = getTrendData(rawdata, defaultData.daily[0].movieCode, date);
+    defaultData.trend = getTrendData(rawdata, defaultData.daily[0].movieCode, date, isAttendance);
     defaultData.title.trend = defaultData.trend.title;
    
     return defaultData;
 }
 
-const getTrendData = (rawdata, clicked, date) => {
+const getTrendData = (rawdata, clicked, date, isAttendance) => {
     let trendData = null,
         categories = [],
         series = [],
@@ -80,8 +84,14 @@ const getTrendData = (rawdata, clicked, date) => {
 
     // filter를 오늘까지 자름
     lastIndex = filtered.findIndex( filtered => filtered.date === date );
-    value = dataType === "daily" ? "audiCnt" : "audiAcc";
-    title = dataType === "daily" ? `${filtered[0].movieNm} 일별 관객수` : `${filtered[0].movieNm} 일별 누적관객수`
+    if ( isAttendance ) {
+        value = dataType === "daily" ? "audiCnt" : "audiAcc";
+        title = dataType === "daily" ? `${filtered[0].movieNm} 일별 관객수` : `${filtered[0].movieNm} 일별 누적관객수`;
+    } else {
+        value = dataType === "daily" ? "salesAmt" : "salesAcc";
+        title = dataType === "daily" ? `${filtered[0].movieNm} 일별 수입` : `${filtered[0].movieNm} 일별 누적수입`;
+    }
+
     releaseDate = filtered[0].openDt.replace(/-/g, '');
 
     for(let i = 0; i <= lastIndex; i++) {

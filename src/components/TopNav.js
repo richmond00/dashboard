@@ -6,7 +6,6 @@ import ko from 'date-fns/locale/ko';
 registerLocale('ko', ko)
 
 const TopNav = (props) => {
-
     const movieInput = (
         <FormControl
           name="search"
@@ -28,7 +27,7 @@ const TopNav = (props) => {
           locale='ko'
         />
     );
-    
+
     return (
         <Navbar expand="lg" bg="light" variant="light" className="justify-content-between">
             <Navbar.Brand className="ml-5">Navbar Text by Bootstrap</Navbar.Brand>
