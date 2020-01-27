@@ -4,11 +4,11 @@
 ### 스택
 서버없이 axios를 통해 내부 json파일의 데이터를 불러와서 구현하였습니다.
 
-1. 클라이언트
+## 클라이언트
     - React
     - Highcharts
     - Bootstrap
     - datepicker
 
-2. 아키텍처
+## 아키텍처
 ![](public/fileStructure.png)
