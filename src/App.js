@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Container from 'react-bootstrap/Container';
 import TopNav from './components/TopNav';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/DashboardByDate';
 import DashboardByTitle from './components/DashboardByTitle';
 import getDefaultData, { getDate, getTrendData, getTitleData } from './common/dataProcessing';
 import axios from 'axios';
@@ -17,7 +17,7 @@ class App extends Component {
             titleData : null,
             searchDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
             currentDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
-            dropdownTitle: '영화명',
+            dropdownTitle: '날짜',
             isLoading: true,
             isSearch: false,
             title: null,

@@ -1,8 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 
-const Attendance = (props) => {
-    console.log('attdeance', props);
+const Rank = (props) => {
     return (
         <div className="bg-white">
             <div className="mt-3 border-bottom">
@@ -33,4 +32,4 @@ const Attendance = (props) => {
     )
 }
 
-export default Attendance;
+export default Rank;
