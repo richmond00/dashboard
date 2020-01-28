@@ -6,6 +6,7 @@ import Dashboard from './components/DashboardByDate';
 import DashboardByTitle from './components/DashboardByTitle';
 import getDefaultData, { getDate, getTrendData, getTitleData } from './common/dataProcessing';
 import axios from 'axios';
+import Footer from './components/Footer';
 
 class App extends Component {
     constructor() {
@@ -177,12 +178,10 @@ class App extends Component {
     }
 
     render() {
-        //const { isLoading, title, daily, cumulative, theaters, trend } = this.state;
         const isTitle = this.state.isTitle,
               dashboardData = { ...this.state },
               dashboard = <Dashboard data={dashboardData} change={this.handleMovienameClick} />,
               dashboardByTitle = <DashboardByTitle data={this.state.titleData} />;
-              //loadingMessage =  <p className="mt-3">데이터 로드 중입니다...</p>;
 
         return (
             <>  
@@ -199,8 +198,7 @@ class App extends Component {
                     />
                     
                     { dashboardData.isLoading ? dashboardData.loadingMessage : (isTitle ? dashboardByTitle : dashboard) }
-                    {/* { isTitle ? dashboardByTitle : dashboard } */}
-                    
+                    <Footer />
                 </Container>
             </>
         )

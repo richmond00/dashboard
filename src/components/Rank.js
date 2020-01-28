@@ -1,11 +1,12 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import './Rank.css';
 
 const Rank = (props) => {
     return (
         <div className="bg-white">
             <div className="mt-3 border-bottom">
-                <h5>{props && props.title}</h5>
+                <h5>{props && props.title} <small className="ml-3">{props.date}</small></h5>
             </div>
             <div>
                 <Table className="bg-white mt-2">
