@@ -33,9 +33,7 @@ const Trend = (props) => {
                 
                 const categoryLength = this.categories.length;
                 let positions = [];
-                console.log(categoryLength);
-                //짝수 끝이안됨
-                //홀수 끝이 맞음
+               
                 if( categoryLength <= 8 ) {
                     return;
                 } else if ( categoryLength > 8 && categoryLength % 2 !== 0 ){
