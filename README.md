@@ -5,7 +5,7 @@
 2019년 국내 개봉한 영화들의 흥행 순위를 간단한 표와 그래프로 소개합니다.
 
 ## 데모
-https://master.d2s3mqxpmkydts.amplifyapp.com/
+https://version-0-1.dpludl6ze5apw.amplifyapp.com/
 
 ## 기술
 백엔드 환경 없이 axios를 통해 내부 json파일의 데이터를 불러와서 구현하였습니다.
