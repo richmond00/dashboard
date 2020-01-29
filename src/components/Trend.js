@@ -6,7 +6,7 @@ require('highcharts/modules/annotations')(Highcharts);
 const Trend = (props) => {
     const series = props.data ? props.data.series : null,
           categories = props.data ? props.data.categories : null;
-    
+   
     Highcharts.setOptions({
         lang: {
             thousandsSep: ','
@@ -28,27 +28,40 @@ const Trend = (props) => {
         },
 
         xAxis: {
-            categories: categories
+            categories: categories,
+            tickPositioner: function() {
+                const categoryLength = this.categories.length;
+                let positions = null;
+
+                if( categoryLength <= 8 ) {
+
+                } else if ( categoryLength > 8 ){
+                
+                }
+            
+                return [0, this.categories.length - 1];
+            }
         },
 
         yAxis: {
             title: undefined,
             min: 0,
-            // labels: {
-            //     formatter: function() {
-            //         let value = this.value;
+            labels: {
+                formatter: function() {
+                    let value = this.value,
+                        unit = '';
 
-            //         if( value >= 0 && value <= 10000) {
-                        
+                    if( value >= 10000 && value < 100000000) { //관객수: 만부터 1억까지
+                        value = value / 10000;
+                        unit = '만';
+                    } else if ( value >= 100000000 && value < 1000000000000) { // 매출액: 1억부터 1조까지
+                        value = value / 100000000;
+                        unit = '억'
+                    }
 
-            //         } else if (value >= 100000 && value <= 1000000) {
-
-            //         }
-
-
-            //         return value;
-            //     }
-            // }
+                    return value.toLocaleString() + unit;
+                }
+            }
         },
 
         plotOptions: {
@@ -66,6 +79,12 @@ const Trend = (props) => {
 
         legend: {
             enabled: false
+        },
+
+        tooltip: {
+            pointFormatter: function() {
+                return this.y.toLocaleString() + this.series.userOptions.tooltipUnit;
+            }
         },
 
         series: series,

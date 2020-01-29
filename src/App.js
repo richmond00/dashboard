@@ -79,7 +79,8 @@ class App extends Component {
                 }
             });
         } else {
-            data = getDefaultData(this.state.rawdata, getDate(this.state.searchDate));
+            
+            data = getDefaultData(this.state.rawdata, getDate(this.state.searchDate), this.state.isAttendace);
             const { title, daily, cumulative, theaters, trend } = data;
         
             this.setState({
@@ -116,15 +117,15 @@ class App extends Component {
 
     handleButtonClick(value) {
         let isAttendace = ( value === 'attendance' ? true : false ),
-            today = getDate(new Date()),
+            today = getDate( this.state.currentDate ),
             defaultData = getDefaultData(this.state.rawdata, today, isAttendace);
 
         const title = defaultData.title,
-                daily = defaultData.daily,
-                cumulative = defaultData.cumulative,
-                theaters  = defaultData.theaters,
-                trend = defaultData.trend,
-                rawdata = defaultData.rawdata;
+              daily = defaultData.daily,
+              cumulative = defaultData.cumulative,
+              theaters  = defaultData.theaters,
+              trend = defaultData.trend,
+              rawdata = defaultData.rawdata;
     
         this.setState({
             ...this.state, ...{

@@ -22,12 +22,15 @@ const Theaters = (props) => {
         plotOptions: {
             pie: {
                 innerSize: '60%',
+                colors: ['#4dabf7', '#74c0fc', '#a5d8ff', '#d0ebff', '#e7f5ff'],
                 dataLabels: {
                     enabled: true,
-                    format: '{key}',
-                    // formatter: function() {
-                    //     debugger;
-                    // },
+                    formatter: function() {
+                        if( this.key.length > 8) {
+                            return this.key.substring(0, 8) + '...';
+                        }
+                        return this.key
+                    },
                     distance: -20,
                 }
             }
@@ -42,7 +45,7 @@ const Theaters = (props) => {
 
         tooltip: {
             pointFormatter: function() {
-                return `${this.percentage.toFixed(2)}% <br /> ${this.y}관`
+                return `${this.percentage.toFixed(2)}% (${this.y.toLocaleString()}관)`
             }
         },
 
@@ -51,11 +54,7 @@ const Theaters = (props) => {
             showInLegend: true,
         }]
     };
-// #EF65A2,
-// #64A4F5
-// #A377FE
-// #FF7E5A
-// #65CFC2
+
     return (
         <div className="bg-white">
             <div className="mt-3 border-bottom">

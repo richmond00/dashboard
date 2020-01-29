@@ -38,7 +38,7 @@ const TopNav = (props) => {
                         <InputGroup>
                             <DropdownButton
                                 as={InputGroup.Prepend}
-                                variant="info"
+                                variant="secondary"
                                 title={props.dropdownTitle}
                                 id="input-group-dropdown-1"
                                 onSelect={props.dropdownSelect}
@@ -47,7 +47,7 @@ const TopNav = (props) => {
                                 <Dropdown.Item eventKey="movieName">영화명</Dropdown.Item>
                             </DropdownButton>
                             {props.dropdownTitle==="영화명" ? movieInput: dateInput}
-                            <Button type="submit" variant="primary">검색</Button>
+                            <Button type="submit" variant="dark">검색</Button>
                         </InputGroup>
                     </Form>
 

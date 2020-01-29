@@ -77,7 +77,8 @@ const getTrendData = (rawdata, clicked, date, isAttendance) => {
         lastIndex = 0,
         value = '',
         title = '',
-        releaseDate = '';
+        releaseDate = '',
+        tooltipUnit = '명';
  
     // rawdata에서 clicked영화만 추출
     filtered = rawdata.filter( rawdata => rawdata.movieCd === targetMovieCode );
@@ -90,9 +91,10 @@ const getTrendData = (rawdata, clicked, date, isAttendance) => {
     } else {
         value = dataType === "daily" ? "salesAmt" : "salesAcc";
         title = dataType === "daily" ? `${filtered[0].movieNm} 일별 수입` : `${filtered[0].movieNm} 일별 누적수입`;
+        tooltipUnit = '원';
     }
 
-    releaseDate = filtered[0].openDt.replace(/-/g, '');
+    //releaseDate = filtered[0].openDt.replace(/-/g, '');
 
     for(let i = 0; i <= lastIndex; i++) {
         let formattedDate = getTrendDate(filtered[i].date),
@@ -104,8 +106,9 @@ const getTrendData = (rawdata, clicked, date, isAttendance) => {
     }
 
     // trend data구조에 맞게 처리
-    series.push({ name: filtered[0].movieNm, data });
+    series.push({ name: filtered[0].movieNm, data, tooltipUnit });
     trendData = { categories, series, title };
+
 
     // return trend data
     return trendData;
