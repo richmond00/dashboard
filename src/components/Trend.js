@@ -30,16 +30,28 @@ const Trend = (props) => {
         xAxis: {
             categories: categories,
             tickPositioner: function() {
-                const categoryLength = this.categories.length;
-                let positions = null;
-
-                if( categoryLength <= 8 ) {
-
-                } else if ( categoryLength > 8 ){
                 
+                const categoryLength = this.categories.length;
+                let positions = [];
+                console.log(categoryLength);
+                //짝수 끝이안됨
+                //홀수 끝이 맞음
+                if( categoryLength <= 8 ) {
+                    return;
+                } else if ( categoryLength > 8 && categoryLength % 2 !== 0 ){
+                    for(let i = 0; i < categoryLength; i += 2) {
+                        positions.push(i);
+                    }
+                    return positions;
+                } else if ( categoryLength > 8 && categoryLength % 2 === 0 ){
+                    for(let i = 0; i < categoryLength; i += 3) {
+                        positions.push(i);
+                    }
+                    positions.push(categoryLength - 1);
+                    return positions;
                 }
             
-                return [0, this.categories.length - 1];
+                
             }
         },
 

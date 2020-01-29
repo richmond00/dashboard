@@ -77,7 +77,7 @@ const getTrendData = (rawdata, clicked, date, isAttendance) => {
         lastIndex = 0,
         value = '',
         title = '',
-        releaseDate = '',
+        //releaseDate = '',
         tooltipUnit = '명';
  
     // rawdata에서 clicked영화만 추출

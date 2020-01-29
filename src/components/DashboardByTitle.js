@@ -27,12 +27,12 @@ const DashboardByTitle = (props) => {
                                 <tr key={index}>
                                     <td>{data.date}</td>
                                     <td>{data.rank}</td>
-                                    <td>{data.salesAmt}</td>
-                                    <td>{data.salesAcc}</td>
-                                    <td>{data.audiCnt}</td>
-                                    <td>{data.audiAcc}</td>
-                                    <td>{data.scrnCnt}</td>
-                                    <td>{data.showcnt}</td>
+                                    <td>{data.salesAmt.toLocaleString()}</td>
+                                    <td>{data.salesAcc.toLocaleString()}</td>
+                                    <td>{data.audiCnt.toLocaleString()}</td>
+                                    <td>{data.audiAcc.toLocaleString()}</td>
+                                    <td>{data.scrnCnt.toLocaleString()}</td>
+                                    <td>{data.showcnt.toLocaleString()}</td>
                                 </tr>
                             )
                         })}
@@ -42,7 +42,7 @@ const DashboardByTitle = (props) => {
         </div>
     );
 
-    const errorMessage = <p>데이터가 없습니다</p>
+    const errorMessage = <p>데이터가 없습니다. 2019년 내 영화제목을 입력해주세요. (예: 알라딘, 극한직업, 말모이 등...)</p>
 
     return (
         <>
