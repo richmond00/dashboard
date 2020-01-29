@@ -10,10 +10,10 @@ https://master.d1gk1rodzrzeak.amplifyapp.com/
 ## 기술
 백엔드 환경 없이 axios를 통해 내부 json파일의 데이터를 불러와서 구현하였습니다.
 그 외 아래와 같은 외부 라이브러리들을 사용하였습니다.
-    - react 16.12.0
-    - highcharts-react-official 2.2.2
-    - react-bootstrap 1.0.0-beta.16
-    - react-datepicker 2.11.0
+    - React
+    - Highcharts
+    - Bootstrap
+    - React Date Picker
 
 ## 배포 서버
 - AWS Amplify
