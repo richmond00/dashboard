@@ -8,7 +8,7 @@
 https://master.d2s3mqxpmkydts.amplifyapp.com/
 
 ## 기술
-백엔드 환경 없이 axios를 통해 내부 json파일의 데이터를 불러와서 구현하였습니다.
+별도의 데이터베이스 없이 JSON 파일의 데이터를 불러와서 구현하였습니다.
 사용한 주요 기술들은 아래와 같습니다.
 - React
 - Highcharts
