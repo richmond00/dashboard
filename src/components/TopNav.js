@@ -32,7 +32,7 @@ const TopNav = (props) => {
         <Row className="mt-0">
             <Col>
                 <Navbar expand="lg" bg="light" variant="light" className="justify-content-between">
-                    <Navbar.Brand href="./" className="ml-1 font-weight-bold">1년 전, 인기 영화는?</Navbar.Brand>
+                    <Navbar.Brand href="./" className="ml-1 font-weight-bold">2년 전, 인기 영화는?</Navbar.Brand>
                     
                     <Form inline className="" onSubmit={props.submit}>
                         <InputGroup>
