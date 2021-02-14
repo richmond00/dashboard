@@ -16,8 +16,8 @@ class App extends Component {
             searchValue: '',
             buttonValue: null,
             titleData : null,
-            searchDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
-            currentDate: new Date(new Date().setFullYear(new Date().getFullYear() - 1)),
+            searchDate: new Date(new Date().setFullYear(new Date().getFullYear() - 2)),
+            currentDate: new Date(new Date().setFullYear(new Date().getFullYear() - 2)),
             dropdownTitle: '날짜',
             isLoading: true,
             isSearch: false,
@@ -145,8 +145,10 @@ class App extends Component {
     componentDidMount() {
         axios.get('../2019.json')
              .then( response => {
-                let today = getDate(new Date()),
-                    defaultData = getDefaultData(response.data.data, today);
+                let d = new Date();
+                d.setFullYear(2020);
+                let today = getDate(d);
+                let defaultData = getDefaultData(response.data.data, today);
 
                 const title = defaultData.title,
                       daily = defaultData.daily,

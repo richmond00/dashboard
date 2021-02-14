@@ -135,8 +135,6 @@ const getTrendDate = (date) => {
 }
 
 const getDate = (date) => {
-    //let date = new Date();
-    //date.setDate(date.getDate() + i);
     let isNow = (date.getFullYear() === 2020),
         month = '' + (date.getMonth() + 1),
         day = '' + date.getDate(),
@@ -149,7 +147,7 @@ const getDate = (date) => {
     if (day.length < 2) {
         day = '0' + day;
     }
-
+console.log([year, month, day].join(''));
     return [year, month, day].join('');
 }
 
